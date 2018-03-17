@@ -41,11 +41,15 @@ namespace wordmap
             //politicswords Data Table
             DataTable politicsWords = new DataTable();
             politicsWords.Columns.Add("word", typeof(string));
+            politicsWords.Columns.Add("count", typeof(int));
 
             bool isPreposition;
             foreach (string line in politicsLines)
             {
-                string[] words = line.Split(new string[] { " ", ":", "/", ".", "؛", "،", "-" }, StringSplitOptions.RemoveEmptyEntries);
+                string[] words = line.Split(new string[] { " ","!","\"","#","؛","،","-","$","%","&","'",
+                                                           "(",")","+",".","/",":",";","<",">","=","?",
+                                                           "[","]","{","}","»","«","1","2","3","4",
+                                                            "5","6","7","8","9","0"}, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string word in words)
                 {
                     //Omit preposition from politics word
@@ -60,12 +64,32 @@ namespace wordmap
                     }
                     if(isPreposition == false)
                     {
-                        DataRow dr = politicsWords.NewRow();
-                        dr["word"] = word;
-                        politicsWords.Rows.Add(dr);
+                        //Counting the identicl word in politics News
+                        bool isrepeated = false;
+                        for(int i=0; i<politicsWords.Rows.Count; i++)
+                        {
+                            if(word == politicsWords.Rows[i]["word"].ToString())
+                            {
+                                politicsWords.Rows[i]["count"] = int.Parse(politicsWords.Rows[i]["count"].ToString()) + 1;
+                                isrepeated = true;
+                                break;
+                            }
+                        }
+                        if(isrepeated == false)
+                        {
+                            DataRow dr = politicsWords.NewRow();
+                            dr["word"] = word;
+                            dr["count"] = 1;
+                            politicsWords.Rows.Add(dr);
+                        } 
                     }  
                 }
             }
+
+            //sort the politics words by number of repeated
+            politicsWords.DefaultView.Sort = "count desc";
+            politicsWords = politicsWords.DefaultView.ToTable();
+
             //Display politicsWords in dataGrid 
             dataGridView2.DataSource = politicsWords;
 
@@ -75,11 +99,14 @@ namespace wordmap
             //sportsWords Data Table
             DataTable sportsWords = new DataTable();
             sportsWords.Columns.Add("word", typeof(string));
-
+            sportsWords.Columns.Add("count", typeof(int));
 
             foreach (string line in sportsLines)
             {
-                string[] words = line.Split(new string[] { " ", ":", "/", ".", "؛", "،","-" }, StringSplitOptions.RemoveEmptyEntries);
+                string[] words = line.Split(new string[] { " ","!","\"","#","؛","،","-","$","%","&","'",
+                                                           "(",")","+",".","/",":",";","<",">","=","?",
+                                                           "[","]","{","}","»","«","1","2","3","4",
+                                                            "5","6","7","8","9","0"}, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string word in words)
                 {
                     //Omit preposition from politics word
@@ -94,13 +121,32 @@ namespace wordmap
                     }
                     if (isPreposition == false)
                     {
-                        DataRow dr = sportsWords.NewRow();
-                        dr["word"] = word;
-                        sportsWords.Rows.Add(dr);
+                        //Counting the identicl word in sports News
+                        bool isrepeated = false;
+                        for (int i = 0; i < sportsWords.Rows.Count; i++)
+                        {
+                            if (word == sportsWords.Rows[i]["word"].ToString())
+                            {
+                                sportsWords.Rows[i]["count"] = int.Parse(sportsWords.Rows[i]["count"].ToString()) + 1;
+                                isrepeated = true;
+                                break;
+                            }
+                        }
+                        if (isrepeated == false)
+                        {
+                            DataRow dr = sportsWords.NewRow();
+                            dr["word"] = word;
+                            dr["count"] = 1;
+                            sportsWords.Rows.Add(dr);
+                        }
                     }
                 }
 
             }
+            //sort the sports words by number of repeated
+            sportsWords.DefaultView.Sort = "count desc";
+            sportsWords = sportsWords.DefaultView.ToTable();
+
             //Display sportsWords in dataGrid 
             dataGridView3.DataSource = sportsWords;
 
