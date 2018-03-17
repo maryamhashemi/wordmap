@@ -1,0 +1,9 @@
+c:\users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\bin\Debug\wordmap.exe.config
+c:\users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\bin\Debug\wordmap.exe
+c:\users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\bin\Debug\wordmap.pdb
+c:\users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\obj\Debug\wordmap.csprojResolveAssemblyReference.cache
+c:\users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\obj\Debug\wordmap.Form1.resources
+c:\users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\obj\Debug\wordmap.Properties.Resources.resources
+c:\users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\obj\Debug\wordmap.csproj.GenerateResource.Cache
+c:\users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\obj\Debug\wordmap.exe
+c:\users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\obj\Debug\wordmap.pdb
