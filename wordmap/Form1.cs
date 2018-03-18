@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace wordmap
 {
@@ -20,7 +21,9 @@ namespace wordmap
         private void Form1_Load(object sender, EventArgs e)
         {
             //Load list of persian Preposition 
-            string[] prepositionLines = System.IO.File.ReadAllLines(@"C:\Users\maryam\Desktop\preposition.txt");
+            string currentDirectory = Directory.GetCurrentDirectory();
+            string filePath = Path.Combine(currentDirectory, "preposition.txt");
+            string[] prepositionLines = System.IO.File.ReadAllLines(filePath);
 
             //Preposition Data Table
             DataTable preposition = new DataTable();
@@ -35,7 +38,24 @@ namespace wordmap
             //Display preposition in dataGrid 
             dataGridView1.DataSource = preposition;
 
+
+            //Load list of persian verbs
+            filePath = Path.Combine(currentDirectory, "verb.txt");
+            string[] verbLines = System.IO.File.ReadAllLines(filePath);
+
+            //verb Data Table
+            DataTable verb = new DataTable();
+            verb.Columns.Add("verb", typeof(string));
+
+            foreach (string line in verbLines)
+            {
+                DataRow dr = verb.NewRow();
+                dr["verb"] = line;
+                verb.Rows.Add(dr);
+            }
+
             //Load politics News
+            filePath = Path.Combine(currentDirectory, "politicsNews .txt");
             string[] politicsLines = System.IO.File.ReadAllLines(@"C:\Users\maryam\Desktop\politicsNews .txt");
 
             //politicswords Data Table
@@ -44,12 +64,16 @@ namespace wordmap
             politicsWords.Columns.Add("count", typeof(int));
 
             bool isPreposition;
+            bool isVerb;
+
             foreach (string line in politicsLines)
             {
                 string[] words = line.Split(new string[] { " ","!","\"","#","؛","،","-","$","%","&","'",
                                                            "(",")","+",".","/",":",";","<",">","=","?",
                                                            "[","]","{","}","»","«","1","2","3","4",
-                                                            "5","6","7","8","9","0"}, StringSplitOptions.RemoveEmptyEntries);
+                                                            "5","6","7","8","9","0","١","۲", "۳","۴",
+                                                            "۵","۶","۷","۸","۹","٠"}, StringSplitOptions.RemoveEmptyEntries);
+
                 foreach (string word in words)
                 {
                     //Omit preposition from politics word
@@ -62,7 +86,17 @@ namespace wordmap
                             break;
                         }
                     }
-                    if(isPreposition == false)
+                    //Omit verb from politics word
+                    isVerb = false;
+                    foreach (DataRow row in verb.Rows)
+                    {
+                        if (row.Field<string>("verb") == word)
+                        {
+                            isVerb = true;
+                            break;
+                        }
+                    }
+                    if (isPreposition == false && isVerb == false)
                     {
                         //Counting the identicl word in politics News
                         bool isrepeated = false;
@@ -94,6 +128,7 @@ namespace wordmap
             dataGridView2.DataSource = politicsWords;
 
             //Load sports News file
+            filePath = Path.Combine(currentDirectory, "sportsNews.txt");
             string[] sportsLines = System.IO.File.ReadAllLines(@"C:\Users\maryam\Desktop\sportsNews.txt");
 
             //sportsWords Data Table
@@ -106,7 +141,8 @@ namespace wordmap
                 string[] words = line.Split(new string[] { " ","!","\"","#","؛","،","-","$","%","&","'",
                                                            "(",")","+",".","/",":",";","<",">","=","?",
                                                            "[","]","{","}","»","«","1","2","3","4",
-                                                            "5","6","7","8","9","0"}, StringSplitOptions.RemoveEmptyEntries);
+                                                            "5","6","7","8","9","0","١","۲", "۳","۴",
+                                                            "۵","۶","۷","۸","۹","٠"}, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string word in words)
                 {
                     //Omit preposition from politics word
@@ -119,7 +155,17 @@ namespace wordmap
                             break;
                         }
                     }
-                    if (isPreposition == false)
+                    //Omit verb from politics word
+                    isVerb = false;
+                    foreach (DataRow row in verb.Rows)
+                    {
+                        if (row.Field<string>("verb") == word)
+                        {
+                            isVerb = true;
+                            break;
+                        }
+                    }
+                    if (isPreposition == false && isVerb == false)
                     {
                         //Counting the identicl word in sports News
                         bool isrepeated = false;
