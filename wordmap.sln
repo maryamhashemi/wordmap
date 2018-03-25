@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wordmap", "wordmap\wordmap.csproj", "{4F8A20B6-8615-4769-8B77-10D61961AC08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHazm", "..\..\..\..\Downloads\Compressed\NHazm-master\NHazm-master\NHazm\NHazm.csproj", "{2F8F52F4-D014-4A2D-B879-4CD1AC3F8DFB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHazm", "NHazm-master\NHazm\NHazm.csproj", "{2F8F52F4-D014-4A2D-B879-4CD1AC3F8DFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
