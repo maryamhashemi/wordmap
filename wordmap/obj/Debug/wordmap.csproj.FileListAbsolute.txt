@@ -8,5 +8,4 @@ c:\users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\obj\Debug\
 c:\users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\obj\Debug\wordmap.exe
 c:\users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\obj\Debug\wordmap.pdb
 C:\Users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\bin\Debug\NHazm.pdb
-C:\Users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\bin\Debug\Bunifu_UI_v1.5.3.dll
 C:\Users\maryam\Documents\Visual Studio 2015\Projects\wordmap\wordmap\bin\Debug\WordCloud.dll

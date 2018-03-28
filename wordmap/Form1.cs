@@ -39,6 +39,15 @@ namespace wordmap
 
             preposition.Columns.Add("preposition", typeof(string));
             verb.Columns.Add("verb", typeof(string));
+
+            //Add word and count clolumn to sportsWords data table
+            sportsWords.Columns.Add("word", typeof(string));
+            sportsWords.Columns.Add("count", typeof(int));
+
+            //Add word and count clolumn to politicsWords data table
+            politicsWords.Columns.Add("word", typeof(string));
+            politicsWords.Columns.Add("count", typeof(int));
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -74,17 +83,8 @@ namespace wordmap
                 DataRow dr = verb.NewRow();
                 dr["verb"] = line;
                 verb.Rows.Add(dr);
-            }
-
-            //Add word and count clolumn to sportsWords data table
-            sportsWords.Columns.Add("word", typeof(string));
-            sportsWords.Columns.Add("count", typeof(int));
-
-            //Add word and count clolumn to politicsWords data table
-            politicsWords.Columns.Add("word", typeof(string));
-            politicsWords.Columns.Add("count", typeof(int));
+            }        
         }
-
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -102,7 +102,7 @@ namespace wordmap
             //Load sports News file
             string currentDirectory = Directory.GetCurrentDirectory();
             string filePath = Path.Combine(currentDirectory, "sportsNews.txt");
-            string[] sportsLines = File.ReadAllLines(@"C:\Users\maryam\Desktop\sportsNews.txt");
+            string[] sportsLines = File.ReadAllLines(filePath);
                           
             //whether the word is preposition or not
             bool isPreposition;
@@ -142,24 +142,26 @@ namespace wordmap
             //Display sentences in dataGridView1
             dataGridView1.DataSource = sportsSentences;
 
+            Lemmatizer lemmatizer = new Lemmatizer();
 
             //split the words of sports News text and add to sportsWords data table
             foreach (string line in sportsLines)
             {
+                string newline = normalize.Run(line);
                 //split each words of each lines
-                string[] words = line.Split(new string[] { " ","!","\"","#","؛","،","-","$","%","&","'",
+                string[] words = newline.Split(new string[] {" ","!","\"","#","؛","،","-","$","%","&","'",
                                                            "(",")","+",".","/",":",";","<",">","=","?",
                                                            "[","]","{","}","»","«","1","2","3","4",
                                                             "5","6","7","8","9","0","١","۲", "۳","۴",
                                                             "۵","۶","۷","۸","۹","٠"}, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string word in words)
-                {
+                {                 
                     //Omit preposition from sports word
                     isPreposition = false;
                     foreach (DataRow row in preposition.Rows)
                     {
                         if (row.Field<string>("preposition") == word)
-                        {
+                        {          
                             isPreposition = true;
                             break;
                         }
@@ -167,7 +169,7 @@ namespace wordmap
 
                     //Omit verb from sports word
                     isVerb = false;
-                   /* if (isPreposition == false)
+                    if (isPreposition == false)
                     {
                         //Omit verb from politics word
                         foreach (DataRow row in verb.Rows)
@@ -178,14 +180,19 @@ namespace wordmap
                                 break;
                             }
                         }
-                    }*/
+                    }
                     if (isPreposition == false && isVerb == false)
                     {
+                        string newword;
+                        if (word.Length >= 5)
+                            newword = lemmatizer.Lemmatize(word);
+                        else
+                            newword = word;
                         //Counting the uniqe word in sports News
                         bool isrepeated = false;
                         for (int i = 0; i < sportsWords.Rows.Count; i++)
                         {
-                            if (word == sportsWords.Rows[i]["word"].ToString())
+                            if (newword == sportsWords.Rows[i]["word"].ToString())
                             {
                                 sportsWords.Rows[i]["count"] = int.Parse(sportsWords.Rows[i]["count"].ToString()) + 1;
                                 isrepeated = true;
@@ -195,13 +202,13 @@ namespace wordmap
                         if (isrepeated == false)
                         {
                             DataRow dr = sportsWords.NewRow();
-                            dr["word"] = word;
+                            dr["word"] = newword;
                             dr["count"] = 1;
                             sportsWords.Rows.Add(dr);
                         }
                     }
                 }
-            }
+            }                   
             //sort the sports words by number of repeated
             sportsWords.DefaultView.Sort = "count desc";
             sportsWords = sportsWords.DefaultView.ToTable();
@@ -226,7 +233,7 @@ namespace wordmap
             //Load politics News
             string currentDirectory = Directory.GetCurrentDirectory();
             string filePath = Path.Combine(currentDirectory, "politicsNews .txt");
-            string[] politicsLines = File.ReadAllLines(@"C:\Users\maryam\Desktop\politicsNews .txt");           
+            string[] politicsLines = File.ReadAllLines(filePath);           
 
             //whether the word is preposition or not
             bool isPreposition;
@@ -266,11 +273,14 @@ namespace wordmap
             //Display sentences in dataGridView1
             dataGridView1.DataSource = politicsSentences;
 
+            Lemmatizer lemmatizer = new Lemmatizer();
+
             //split the words of politics News text and add to politicsWords data table
             foreach (string line in politicsLines)
-            {              
+            {
+                string newline = normalize.Run(line);
                 //split each words of each lines
-                string[] words = line.Split(new string[] { " ","!","\"","#","؛","،","-","$","%","&","'",
+                string[] words = newline.Split(new string[] {" ","!","\"","#","؛","،","-","$","%","&","'",
                                                            "(",")","+",".","/",":",";","<",">","=","?",
                                                            "[","]","{","}","»","«","1","2","3","4",
                                                             "5","6","7","8","9","0","١","۲", "۳","۴",
@@ -304,11 +314,17 @@ namespace wordmap
                     }
                     if (isPreposition == false && isVerb == false)
                     {
+                        string newword;
+                        if (word.Length >= 5)
+                            newword = lemmatizer.Lemmatize(word);
+                        else
+                            newword = word;
+
                         //Counting the uniqe word in politics News
                         bool isrepeated = false;
                         for (int i = 0; i < politicsWords.Rows.Count; i++)
                         {
-                            if (word == politicsWords.Rows[i]["word"].ToString())
+                            if (newword == politicsWords.Rows[i]["word"].ToString())
                             {
                                 politicsWords.Rows[i]["count"] = int.Parse(politicsWords.Rows[i]["count"].ToString()) + 1;
                                 isrepeated = true;
@@ -318,7 +334,7 @@ namespace wordmap
                         if (isrepeated == false)
                         {
                             DataRow dr = politicsWords.NewRow();
-                            dr["word"] = word;
+                            dr["word"] = newword;
                             dr["count"] = 1;
                             politicsWords.Rows.Add(dr);
                         }
@@ -374,6 +390,7 @@ namespace wordmap
                 {
                     wordslist.Add(sportsWords.Rows[i]["word"].ToString());
                     frequencylist.Add(int.Parse(sportsWords.Rows[i]["count"].ToString()));
+                           
                 }
             }
             else
@@ -393,7 +410,10 @@ namespace wordmap
             newImage = wc.Draw(wordslist, frequencylist);
 
             pictureBox1.Image = newImage;
-            pictureBox1.Visible = true;            
+            pictureBox1.Visible = true;
+
+            sportsWords.Clear();
+            politicsWords.Clear();        
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
