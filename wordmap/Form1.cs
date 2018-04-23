@@ -8,24 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using NHazm;
 using WordCloudGen = WordCloud.WordCloud;
-using System.Text.RegularExpressions;
-
 
 
 namespace wordmap
 {
     public partial class Form1 : Form
     {
-        //split senteneces of text
-        public SentenceTokenizer senTokenizer = new SentenceTokenizer();
-
-        //normalize the sentences
-        public Normalizer normalize = new Normalizer();
-
-        //lemmatize the word
-        public Lemmatizer lemmatizer = new Lemmatizer();
 
         public Form1()
         {
@@ -34,211 +23,237 @@ namespace wordmap
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            List<string> prepVerbList = new List<string>();
+            Cursor.Current = Cursors.WaitCursor;
+                
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "sportsNews.txt");
+            string sportsText = File.ReadAllText(filePath);
 
-            //Load list of persian Preposition 
-            string currentDirectory = Directory.GetCurrentDirectory();
-            string filePath = Path.Combine(currentDirectory, "preposition.txt");
-            string[] prepositionLines = File.ReadAllLines(filePath);
+            wordmap wm = new wordmap();
+            List<string> prepVerbList = wm.GetprepVerbList();
+            label2.Text = "loading preposition and verb files ...";
+            label2.Refresh();
 
-            foreach (string line in prepositionLines)
+            sportsText = wm.normalize(sportsText);
+            label2.Text = "normalizing text ...";
+            label2.Refresh();
+
+            Dictionary<string, int> sentences = wm.GetSentences(sportsText);
+            label2.Text = "tokenizing sentences ...";
+            label2.Refresh();
+
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+            dataGridView1.Columns.Add("Values", "ID");
+            dataGridView1.Columns.Add("Key", "SENTENCE");
+
+            foreach (KeyValuePair<string, int> item in sentences)
             {
-                prepVerbList.Add(line);
+                dataGridView1.Rows.Add(item.Value, item.Key);
             }
+            label2.Text = "displaying  sentences in datagridview ...";
+            label2.Refresh();
 
-            //Load list of persian verbs
-            filePath = Path.Combine(currentDirectory, "verb.txt");
-            string[] verbLines = File.ReadAllLines(filePath);
+            string[] words = wm.tokenize(sportsText);
+            label2.Text = "tokenizing text ...";
+            label2.Refresh();
 
-            foreach (string line in verbLines)
-            {
-                prepVerbList.Add(line);
-            }
+            Dictionary<string, int> wordCount = wm.CalcWordCount(words);
+            label2.Text = "lemmatizing and counting words frequencies ...";
+            label2.Refresh();
 
-            //Load sports News file
-            currentDirectory = Directory.GetCurrentDirectory();
-            filePath = Path.Combine(currentDirectory, "sportsNews.txt");
-            string[] sportsLines = File.ReadAllLines(filePath);
+            wordCount = wm.deletePrepVerb(prepVerbList, wordCount);
+            label2.Text = "deleting preposition and verb from words ...";
+            label2.Refresh();
 
-            Dictionary<string, int> sportsSenDic = new Dictionary<string, int>();
-            int sportsSenCount = 0;
-
-            //split senteneces of sports News text and add to sportsSentences data table
-            foreach (string line in sportsLines)
-            {
-                string[] sentences;
-                sentences = senTokenizer.Tokenize(line).ToArray();
-
-                foreach (string sentence in sentences)
-                {
-                    if (!sportsSenDic.ContainsKey(normalize.Run(sentence)))
-                    {
-                        sportsSenDic.Add(normalize.Run(sentence), sportsSenCount++);
-                    }
-                }
-            }
-
-            char[] delimiters = new char[] {
-              ',', '"', ')', '(', ';', '.', '\n', '\r', '\t',
-              '>', '<', ':', '=', '\'', '[', ']',' ','!','#',
-              '؛','،','-','$','%','&','\'', '+','/','?','؟',
-              '{','}','»','«','1','2','3','4','5','6','7','8',
-              '9','0','١','۲', '۳','۴','۵','۶','۷','۸','۹','٠'};
-
-            Dictionary<string, int> sportsWord = new Dictionary<string, int>();
-
-            //split the words of sports News text and add to sportsWords data table
-            foreach (string line in sportsLines)
-            {
-                //split each words of each lines
-                string[] words = normalize.Run(line).Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
-
-                foreach (string word in words)
-                {
-                    string lemWord =word;
-                    if(word.Length > 5)
-                        lemWord= lemmatizer.Lemmatize(word);
-
-                    if (sportsWord.ContainsKey(lemWord))
-                        sportsWord[lemWord] += 1;
-                    else
-                        sportsWord.Add(lemWord, 1);
-                }
-            }
-
-            //delete preposition and verb from sports words
-            foreach(string element in prepVerbList)
-            {
-                string lemElement = element;
-                if (element.Length > 5)
-                     lemElement = lemmatizer.Lemmatize(element);
-
-                if (sportsWord.ContainsKey(lemElement))
-                    sportsWord.Remove(lemElement);
-            }
-
-            //List to show wordmap
-            List<string> wordslist = new List<string>();
-            List<int> frequencylist = new List<int>();
-
-            var items = from pair in sportsWord
+            var items = from pair in wordCount
                         orderby pair.Value descending
                         select pair;
 
-            //add sports words and frequency to the list           
+            dataGridView2.Rows.Clear();
+            dataGridView2.Columns.Clear();
+            dataGridView2.Columns.Add("Key", "WORD");
+            dataGridView2.Columns.Add("Values", "COUNT");
+           
             foreach (var kvp in items)
             {
-                    wordslist.Add(kvp.Key);
-                    frequencylist.Add(kvp.Value);
+                dataGridView2.Rows.Add(kvp.Key, kvp.Value);
             }
+            label2.Text = "displaying  wordCount in datagridview ...";
+            label2.Refresh();
 
-            //create word cloud generation
-            var wc = new WordCloudGen(pictureBox1.Width, pictureBox1.Height);
+            pictureBox1.Image = wm.getImageWordmap(wordCount,pictureBox1.Width,pictureBox1.Height);
+            label2.Text = "displaying wordmap ...";
+            label2.Refresh();
 
-            // display wordmap image of sports news
-            Image newImage = wc.Draw(wordslist, frequencylist);
-
-            pictureBox1.Image = newImage;
+            label2.Text = "";
+            label2.Refresh();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            List<string> prepVerbList = new List<string>();
+            Cursor.Current = Cursors.WaitCursor;
+ 
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "politicsNews .txt");
+            string politicsText = File.ReadAllText(filePath);
 
-            //Load list of persian Preposition 
-            string currentDirectory = Directory.GetCurrentDirectory();
-            string filePath = Path.Combine(currentDirectory, "preposition.txt");
-            string[] prepositionLines = File.ReadAllLines(filePath);
+            wordmap wm = new wordmap();
+            List<string> prepVerbList = wm.GetprepVerbList();
+            label2.Text = "loading preposition and verb files ...";
+            label2.Refresh();
 
-            foreach (string line in prepositionLines)
+            politicsText = wm.normalize(politicsText);
+            label2.Text = "normalizing text ...";
+            label2.Refresh();
+
+            Dictionary<string, int> sentences = wm.GetSentences(politicsText);
+            label2.Text = "tokenizing sentences ...";
+            label2.Refresh();
+
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+            dataGridView1.Columns.Add("Values", "ID");
+            dataGridView1.Columns.Add("Key", "SENTENCE");
+
+            foreach (KeyValuePair<string, int> item in sentences)
             {
-                prepVerbList.Add(line);
+                dataGridView1.Rows.Add(item.Value, item.Key);
             }
+            label2.Text = "displaying  sentences in datagridview ...";
+            label2.Refresh();
 
-            //Load list of persian verbs
-            filePath = Path.Combine(currentDirectory, "verb.txt");
-            string[] verbLines = File.ReadAllLines(filePath);
+            string[] words = wm.tokenize(politicsText);
+            label2.Text = "tokenizing text ...";
+            label2.Refresh();
 
-            foreach (string line in verbLines)
-            {
-                prepVerbList.Add(line);
-            }
+            Dictionary<string, int> wordCount = wm.CalcWordCount(words);
+            label2.Text = "lemmatizing and counting words frequencies ...";
+            label2.Refresh();
 
-            //Load politics News file
-            currentDirectory = Directory.GetCurrentDirectory();
-            filePath = Path.Combine(currentDirectory, "politicsNews .txt");
-            string[] politicsLines = File.ReadAllLines(filePath);
+            wordCount = wm.deletePrepVerb(prepVerbList, wordCount);
+            label2.Text = "deleting preposition and verb from words ...";
+            label2.Refresh();
 
-            Dictionary<string, int> politicsSenDic = new Dictionary<string, int>();
-            int politicsSenCount = 0;
-
-            //split senteneces of politics News text and add to politicsSenDic dictionary
-            foreach (string line in politicsLines)
-            {
-                string[] sentences;
-                sentences = senTokenizer.Tokenize(line).ToArray();
-
-                foreach (string sentence in sentences)
-                {
-                    if (!politicsSenDic.ContainsKey(normalize.Run(sentence)))
-                    {
-                        politicsSenDic.Add(normalize.Run(sentence), politicsSenCount++);
-                    }
-                }
-            }
-
-            char[] delimiters = new char[] {
-              ',', '"', ')', '(', ';', '.', '\n', '\r', '\t',
-              '>', '<', ':', '=', '\'', '[', ']',' ','!','#',
-              '؛','،','-','$','%','&','\'', '+','/','?','؟',
-              '{','}','»','«','1','2','3','4','5','6','7','8',
-              '9','0','١','۲', '۳','۴','۵','۶','۷','۸','۹','٠'};
-
-            Dictionary<string, int> politicsWord = new Dictionary<string, int>();
-
-            //split the words of politics News text and add to sportsWord dictionary
-            foreach (string line in politicsLines)
-            {
-                //split each words of each lines
-                string[] words = normalize.Run(line).Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
-
-                foreach (string word in words)
-                {
-                    string lemWord = word;
-                    if (word.Length > 5)
-                        lemWord = lemmatizer.Lemmatize(word);
-
-                    if (politicsWord.ContainsKey(lemWord))
-                        politicsWord[lemWord] += 1;
-                    else
-                        politicsWord.Add(lemWord, 1);
-                }
-            }
-
-            //delete preposition and verb from politics words
-            foreach (string element in prepVerbList)
-            {
-                string lemElement = element;
-                if (element.Length > 5)
-                    lemElement = lemmatizer.Lemmatize(element);
-
-                if (politicsWord.ContainsKey(lemElement))
-                    politicsWord.Remove(lemElement);
-            }
-
-            //List to show wordmap
-            List<string> wordslist = new List<string>();
-            List<int> frequencylist = new List<int>();
-
-            var items = from pair in politicsWord
+            var items = from pair in wordCount
                         orderby pair.Value descending
                         select pair;
 
-            //add sports words and frequency to the list           
+            dataGridView2.Rows.Clear();
+            dataGridView2.Columns.Clear();
+            dataGridView2.Columns.Add("Key", "WORD");
+            dataGridView2.Columns.Add("Values", "COUNT");
+
             foreach (var kvp in items)
             {
-                wordslist.Add(kvp.Key);
-                frequencylist.Add(kvp.Value);
+                dataGridView2.Rows.Add(kvp.Key, kvp.Value);
+            }
+            label2.Text = "displaying  wordCount in datagridview ...";
+            label2.Refresh();
+
+            pictureBox1.Image = wm.getImageWordmap(wordCount, pictureBox1.Width, pictureBox1.Height);
+            label2.Text = "displaying wordmap ...";
+            label2.Refresh();
+
+            label2.Text = "";
+            label2.Refresh();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;   
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "sportsNews.txt");
+            string sportsText = File.ReadAllText(filePath);
+
+            wordmap wm = new wordmap();
+            List<string> prepVerbList = wm.GetprepVerbList();
+            label2.Text = "loading preposition and verb files ...";
+            label2.Refresh();
+
+            sportsText = wm.normalize(sportsText);
+            label2.Text = "normalizing text ...";
+            label2.Refresh();
+
+            string[] words = wm.tokenize(sportsText);
+            label2.Text = "tokenizing text ...";
+            label2.Refresh();
+
+            Dictionary<string, int> SportswordCount = wm.CalcWordCount(words);
+            label2.Text = "lemmatizing and counting words frequencies ...";
+            label2.Refresh();
+
+            SportswordCount = wm.deletePrepVerb(prepVerbList, SportswordCount);
+            label2.Text = "deleting preposition and verb from words ...";
+            label2.Refresh();
+
+            filePath = Path.Combine(Directory.GetCurrentDirectory(), "politicsNews .txt");
+            string politicsText = File.ReadAllText(filePath);
+
+            politicsText = wm.normalize(politicsText);
+            label2.Text = "normalizing text ...";
+            label2.Refresh();
+
+            words = wm.tokenize(politicsText);
+            label2.Text = "tokenizing text ...";
+            label2.Refresh();
+
+            Dictionary<string, int> PoliticswordCount = wm.CalcWordCount(words);
+            label2.Text = "lemmatizing and counting words frequencies ...";
+            label2.Refresh();
+
+            PoliticswordCount = wm.deletePrepVerb(prepVerbList, PoliticswordCount);
+            label2.Text = "deleting preposition and verb from words ...";
+            label2.Refresh();
+
+            decimal totalsportsWordCount = (decimal)SportswordCount.Sum(x => x.Value);
+            decimal totalpoliticsWordCount = (decimal)PoliticswordCount.Sum(x => x.Value);
+
+
+            List<string> AllWord = new List<string>();
+            List<string> sportsWordList = new List<string>();
+            List<string> politicsWordList = new List<string>();
+            sportsWordList = SportswordCount.Keys.ToList();
+            politicsWordList = PoliticswordCount.Keys.ToList();
+            AllWord = sportsWordList.Union(politicsWordList).ToList();
+
+
+            DataTable Allword = new DataTable();
+            Allword.Columns.Add("word", typeof(string));
+            Allword.Columns.Add("SportsCount", typeof(decimal));
+            Allword.Columns.Add("PoliticsCount", typeof(decimal));
+            Allword.Columns.Add("Distance", typeof(decimal));
+
+            foreach(string word  in AllWord)
+            {
+                decimal sportValue;
+                decimal politicsValue;
+
+                if (SportswordCount.ContainsKey(word))
+                    sportValue = (decimal)SportswordCount[word];
+                else
+                    sportValue = 0;
+                if (PoliticswordCount.ContainsKey(word))
+                    politicsValue = (decimal)PoliticswordCount[word];
+                else
+                    politicsValue = 0;
+                decimal distance = (sportValue / totalsportsWordCount) - (politicsValue / totalpoliticsWordCount);
+                Allword.Rows.Add(word, sportValue, politicsValue, distance);
+            }
+
+
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+
+            Allword.DefaultView.Sort = "Distance DESC";
+            Allword = Allword.DefaultView.ToTable();
+            dataGridView1.DataSource = Allword;
+
+            List<string> wordslist = new List<string>();
+            List<int> frequencylist = new List<int>();
+
+            for (int i = 0; i < Allword.Rows.Count; i++)
+            {
+                wordslist.Add(Allword.Rows[i]["word"].ToString());
+                frequencylist.Add((int)(Math.Abs(Convert.ToDecimal(Allword.Rows[i]["Distance"].ToString()) * 10000)));
+
             }
 
             //create word cloud generation
@@ -248,6 +263,9 @@ namespace wordmap
             Image newImage = wc.Draw(wordslist, frequencylist);
 
             pictureBox1.Image = newImage;
+
+            label2.Text = "";
+            label2.Refresh();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -255,5 +273,11 @@ namespace wordmap
             Application.Exit();
         }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            NaiveBayes NB = new NaiveBayes();
+            NB.classifier();
+        }
     }
 }

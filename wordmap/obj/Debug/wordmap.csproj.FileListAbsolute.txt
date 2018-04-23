@@ -9,16 +9,3 @@ c:\users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\obj\Debug\
 c:\users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\obj\Debug\wordmap.pdb
 C:\Users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\bin\Debug\NHazm.pdb
 C:\Users\maryam\Documents\Visual Studio 2015\Projects\wordmap\wordmap\bin\Debug\WordCloud.dll
-C:\Users\maryam\Documents\Visual Studio 2015\Projects\wordmap\wordmap\obj\Debug\wordmap.loadingform.resources
-C:\Users\maryam\Documents\Visual Studio 2015\Projects\wordmap\wordmap\obj\Debug\wordmap.Form2.resources
-C:\Users\maryam\Documents\wordmap\wordmap\bin\Debug\wordmap.exe.config
-C:\Users\maryam\Documents\wordmap\wordmap\obj\Debug\wordmap.exe
-C:\Users\maryam\Documents\wordmap\wordmap\obj\Debug\wordmap.pdb
-C:\Users\maryam\Documents\wordmap\wordmap\bin\Debug\wordmap.exe
-C:\Users\maryam\Documents\wordmap\wordmap\bin\Debug\wordmap.pdb
-C:\Users\maryam\Documents\wordmap\wordmap\bin\Debug\WordCloud.dll
-C:\Users\maryam\Documents\wordmap\wordmap\bin\Debug\NHazm.pdb
-C:\Users\maryam\Documents\wordmap\wordmap\obj\Debug\wordmap.csprojResolveAssemblyReference.cache
-C:\Users\maryam\Documents\wordmap\wordmap\obj\Debug\wordmap.Form1.resources
-C:\Users\maryam\Documents\wordmap\wordmap\obj\Debug\wordmap.Properties.Resources.resources
-C:\Users\maryam\Documents\wordmap\wordmap\obj\Debug\wordmap.csproj.GenerateResource.Cache
