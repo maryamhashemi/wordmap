@@ -1,0 +1,1162 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        "vw_clr"
+    </assembly>
+    <members>
+        <member name="M:VW.hashstring(System.String,System.UInt64)">
+            <summary>
+Hashes the given value <paramref name="s" />.
+</summary>
+            <param name="s">String to be hashed.</param>
+            <param name="u">Hash offset.</param>
+            <returns>The resulting hash code.</returns>
+        </member>
+        <member name="M:VW.hashall(System.String,System.Int32,System.Int32,System.UInt64)">
+            <summary>
+Hashes the given value <paramref name="s" />.
+</summary>
+            <param name="s">String to be hashed.</param>
+            <param name="u">Hash offset.</param>
+            <returns>The resulting hash code.</returns>
+        </member>
+        <member name="M:VW.VowpalWabbitExampleBuilder.AddNamespace(System.Char)">
+            <summary>
+Creates and adds a new namespace to this example.
+</summary>
+            <param name="featureGroup">The feature group of the new namespace.</param>
+            <remarks>Casts to System::Byte.</remarks>
+        </member>
+        <member name="M:VW.VowpalWabbitExampleBuilder.AddNamespace(System.Byte)">
+            <summary>
+Creates and adds a new namespace to this example.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitExampleBuilder.ApplyLabel(VW.Labels.ILabel)">
+            <summary>
+Sets the label for the resulting example.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitExampleBuilder.CreateExample">
+            <summary>
+Creates the managed example representation.
+</summary>
+            <returns>Creates the managed example.</returns>
+        </member>
+        <member name="M:VW.VowpalWabbitExampleBuilder.Dispose">
+            <summary>
+Cleanup.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitExampleBuilder.#ctor(VW.IVowpalWabbitExamplePool)">
+            <summary>
+Initializes a new <see cref="T:VW.VowpalWabbitExampleBuilder" /> instance.
+</summary>
+            <param name="vw">The parent vowpal wabbit instance.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitExampleBuilder.Finalize">
+            <summary>
+Cleanup.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitExampleBuilder.m_example">
+            <summary>
+The produced CLR example data structure.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbitExampleBuilder">
+            <summary>
+Helper class to ease construction of native vowpal wabbit example data structure.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitNamespaceBuilder.PreAllocate(System.Int32)">
+            <summary>
+Pre-allocate features of <paramref name="size" />.
+</summary>
+            <param name="size">The number of features to pre-allocate.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitNamespaceBuilder.AddFeaturesUnchecked(System.UInt64,System.Single*,System.Single*)">
+            <summary>
+Adds a dense array to the example.
+</summary>
+            <param name="weight_index_base">The base weight index. Each element is then placed relative to this index.</param>
+            <param name="begin">The start pointer of the float array.</param>
+            <param name="end">The end pointer of the float array.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitNamespaceBuilder.AddFeature(System.UInt64,System.Single)">
+            <summary>
+Add feature entry.
+</summary>
+            <param name="weight_index">The weight index.</param>
+            <param name="x">The value.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitNamespaceBuilder.#ctor(features*,System.Byte,example*)">
+            <summary>
+Initializes a new <see cref="T:VW.VowpalWabbitNamespaceBuilder" /> instance.
+</summary>
+            <param name="features">Pointer into features owned by <see cref="T:VW.VowpalWabbitExample" />.</param>
+            <param name="index">The namespace index.</param>
+            <param name="example">The native example to build up.</param>
+        </member>
+        <member name="F:VW.VowpalWabbitNamespaceBuilder.m_example">
+            <summary>
+The native example.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitNamespaceBuilder.m_index">
+            <summary>
+The namespace index.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitNamespaceBuilder.m_features">
+            <summary>
+Features.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbitNamespaceBuilder">
+            <summary>
+Helper class to ease construction of native vowpal wabbit namespace data structure.
+</summary>
+        </member>
+        <member name="M:VW.SpanningTreeClr.Stop">
+            <summary>
+Stops the background thread.
+</summary>
+        </member>
+        <member name="M:VW.SpanningTreeClr.Run">
+            <summary>
+Runs the server on the calling thread.
+</summary>
+        </member>
+        <member name="M:VW.SpanningTreeClr.Start">
+            <summary>
+Starts the server on a background thread.
+</summary>
+        </member>
+        <member name="M:VW.SpanningTreeClr.#ctor">
+            <summary>
+Initializes a new <see cref="T:VW.SpanningTreeClr" /> instance.
+</summary>
+        </member>
+        <member name="T:VW.SpanningTreeClr">
+            <summary>
+Managed wrapper for AllReduce spanning tree implementation.
+</summary>
+        </member>
+        <member name="M:VW.clr_io_memory_buf.#ctor">
+            <summary>
+Initializes a new <see cref="T:VW.clr_io_memory_buf" /> instance.
+</summary>
+        </member>
+        <member name="T:VW.clr_io_memory_buf">
+            <summary>
+IO Buffer keeping data in memory. Used by VowpalWabbit::Reload.
+</summary>
+        </member>
+        <member name="M:VW.clr_io_buf.#ctor(System.IO.Stream)">
+            <summary>
+Initializes a new <see cref="T:VW.clr_io_buf" /> instance.
+</summary>
+        </member>
+        <member name="T:VW.clr_io_buf">
+            <summary>
+C++ wrapper for managed <see cref="T:System.IO.Stream" />.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitExample.IsNewLine">
+            <summary>
+True if this is a new line example, otherwise false.
+</summary>
+            <remarks>A example without features is considered a new line example.</remarks>
+        </member>
+        <member name="P:VW.VowpalWabbitExample.VowpalWabbitString">
+            <summary>
+The corresponding VowpalWabbitString for this example.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitExample.Owner">
+            <summary>
+The owner of this example.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitExample.InnerExample">
+            <summary>
+An optional inner example this example wraps.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitExample.GetPrediction``1(VW.VowpalWabbit,VW.IVowpalWabbitPredictionFactory`1{``0})">
+            <summary>
+Extracts the prediction from this example using the given prediction factory.
+</summary>
+            <returns>The prediction stored in this example.</returns>
+        </member>
+        <member name="M:VW.VowpalWabbitExample.Dispose">
+            <summary>
+Returns native example data structure to owning pool.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitExample.#ctor(VW.IVowpalWabbitExamplePool,VW.VowpalWabbitExample)">
+            <summary>
+Initializes a new instance of <see cref="T:VW.VowpalWabbitExample" />.
+</summary>
+            <param name="owner">The parent instance. Examples cannot be shared between <see cref="T:VW.IVowpalWabbitExamplePool" /> instances.</param>
+            <param name="example">The inner example this instance wraps.</param>
+        </member>
+        <member name="F:VW.VowpalWabbitExample.m_string">
+            <summary>
+The optional string version of the example.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitExample.m_owner">
+            <summary>
+The owner of this example.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitExample.m_example">
+            <summary>
+The native example data structure.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitExample.#ctor(VW.IVowpalWabbitExamplePool,example*)">
+            <summary>
+Initializes a new instance of <see cref="T:VW.VowpalWabbitExample" />.
+</summary>
+            <param name="owner">The parent instance. Examples cannot be shared between vw instances.</param>
+            <param name="example">The already allocated example structure</param>
+        </member>
+        <member name="M:VW.VowpalWabbitExample.Finalize">
+            <summary>
+Returns native example data structure to owning instance.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitExample.m_innerExample">
+            <summary>
+Reference to an optional underlying example.
+</summary>
+            <remarks>If this instance owns <see name="m_example" /> this is null.</remarks>
+        </member>
+        <member name="T:VW.VowpalWabbitExample">
+            <summary>
+A CLR representation of a vowpal wabbit example.
+</summary>
+            <remarks>
+Underlying memory is allocated by native code, but examples are not part of the ring.
+</remarks>
+        </member>
+        <member name="T:VW.Labels.SharedLabel">
+            <summary>
+In multi-line scenarios the first example can contain a set of shared features. This first example must be
+marked using a 'shared' label.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitLabelComparator.ContextualBandit">
+            <summary>
+Contextual bandit label comparator.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitLabelComparator.Simple">
+            <summary>
+Simple label comparator.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbitLabelComparator">
+            <summary>
+Label comparator factory.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitContextualBanditLabelComparator.Diff(VW.VowpalWabbitExample,VW.VowpalWabbitExample)">
+            <summary>
+Compares labels of <paramref name="ex1" /> and <paramref name="ex2" />.
+</summary>
+            <returns>Returns null if labels are equivalent, otherwise returns the difference description.</returns>
+        </member>
+        <member name="T:VW.VowpalWabbitContextualBanditLabelComparator">
+            <summary>
+A label comparer for contextual bandit label.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitSimpleLabelComparator.Diff(VW.VowpalWabbitExample,VW.VowpalWabbitExample)">
+            <summary>
+Compares labels of <paramref name="ex1" /> and <paramref name="ex2" />.
+</summary>
+            <returns>Returns null if labels are equivalent, otherwise returns the difference description.</returns>
+        </member>
+        <member name="T:VW.VowpalWabbitSimpleLabelComparator">
+            <summary>
+A label comparer for simple labels.
+</summary>
+        </member>
+        <member name="M:VW.IVowpalWabbitLabelComparator.Diff(VW.VowpalWabbitExample,VW.VowpalWabbitExample)">
+            <summary>
+Compares labels of <paramref name="ex1" /> and <paramref name="ex2" />.
+</summary>
+            <returns>Returns null if labels are equivalent, otherwise returns the difference description.</returns>
+        </member>
+        <member name="T:VW.IVowpalWabbitLabelComparator">
+            <summary>
+Interface for label comparators.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbit.ReturnExampleToPool(VW.VowpalWabbitExample)">
+            <summary>
+Puts a native example data structure back into the pool.
+</summary>
+            <param name="example">The example to be returned.</param>
+        </member>
+        <member name="M:VW.VowpalWabbit.GetOrCreateNativeExample">
+            <summary>
+Gets or creates a native example from a CLR maintained, but natively allocated pool.
+</summary>
+            <returns>A ready to use cleared native example data structure.</returns>
+        </member>
+        <member name="M:VW.VowpalWabbit.Driver">
+            <summary>
+Invokes the driver.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbit.EndOfPass">
+            <summary>
+Signals the end of a pass.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbit.Predict``1(System.Collections.Generic.IEnumerable`1{System.String},VW.IVowpalWabbitPredictionFactory`1{``0})">
+            <summary>
+Predicts for the given lines.
+</summary>
+            <typeparam name="T">The prediction type.</typeparam>
+            <param name="lines">Data in vw string format.</param>
+            <param name="predictionFactory">The prediction factory to be used. See <see cref="T:VW.VowpalWabbitPredictionType" />.</param>
+            <returns>The prediction for the given <paramref name="lines" />.</returns>
+        </member>
+        <member name="M:VW.VowpalWabbit.Learn``1(System.Collections.Generic.IEnumerable`1{System.String},VW.IVowpalWabbitPredictionFactory`1{``0})">
+            <summary>
+Learns from multi-line examples.
+</summary>
+            <typeparam name="T">The prediction type.</typeparam>
+            <param name="lines">Data in vw string format.</param>
+            <param name="predictionFactory">The prediction factory to be used. See <see cref="T:VW.VowpalWabbitPredictionType" />.</param>
+            <returns>The prediction for the given <paramref name="lines" />.</returns>
+        </member>
+        <member name="M:VW.VowpalWabbit.Predict(System.Collections.Generic.IEnumerable`1{System.String})">
+            <summary>
+Predicts for multi-line examples.
+</summary>
+            <param name="lines">Data in vw string format.</param>
+        </member>
+        <member name="M:VW.VowpalWabbit.Learn(System.Collections.Generic.IEnumerable`1{System.String})">
+            <summary>
+Learns from multi-line examples.
+</summary>
+            <param name="lines">Data in vw string format.</param>
+        </member>
+        <member name="M:VW.VowpalWabbit.Predict``1(System.String,VW.IVowpalWabbitPredictionFactory`1{``0})">
+            <summary>
+Predicts for string data.
+</summary>
+            <typeparam name="T">The prediction type.</typeparam>
+            <param name="line">Data in vw string format.</param>
+            <param name="predictionFactory">The prediction factory to be used. See <see cref="T:VW.VowpalWabbitPredictionType" />.</param>
+            <returns>The prediction for the given <paramref name="line" />.</returns>
+        </member>
+        <member name="M:VW.VowpalWabbit.Learn``1(System.String,VW.IVowpalWabbitPredictionFactory`1{``0})">
+            <summary>
+Learns from string data.
+</summary>
+            <typeparam name="T">The prediction type.</typeparam>
+            <param name="line">Data in vw string format.</param>
+            <param name="predictionFactory">The prediction factory to be used. See <see cref="T:VW.VowpalWabbitPredictionType" />.</param>
+            <returns>The prediction for the given <paramref name="line" />.</returns>
+        </member>
+        <member name="M:VW.VowpalWabbit.Predict(System.String)">
+            <summary>
+Predicts for string data.
+</summary>
+            <param name="line">Data in vw string format.</param>
+        </member>
+        <member name="M:VW.VowpalWabbit.Learn(System.String)">
+            <summary>
+Learns from string data.
+</summary>
+            <param name="line">Data in vw string format.</param>
+        </member>
+        <member name="M:VW.VowpalWabbit.Predict(VW.VowpalWabbitExample)">
+            <summary>
+Predicts for the given example.
+</summary>
+            <param name="example">Example to predict for.</param>
+        </member>
+        <member name="M:VW.VowpalWabbit.Learn(VW.VowpalWabbitExample)">
+            <summary>
+Learns from the given example.
+</summary>
+            <param name="example">Example to learn from.</param>
+        </member>
+        <member name="M:VW.VowpalWabbit.Predict``1(VW.VowpalWabbitExample,VW.IVowpalWabbitPredictionFactory`1{``0})">
+            <summary>
+Predicts for the given example.
+</summary>
+            <typeparam name="T">The prediction type.</typeparam>
+            <param name="example">Example to predict for.</param>
+            <param name="predictionFactory">The prediction factory to be used. See <see cref="T:VW.VowpalWabbitPredictionType" />.</param>
+            <returns>The prediction for the given <paramref name="example" />.</returns>
+        </member>
+        <member name="M:VW.VowpalWabbit.Learn``1(VW.VowpalWabbitExample,VW.IVowpalWabbitPredictionFactory`1{``0})">
+            <summary>
+The associated <see cref="T:VW.VowpalWabbitBase" /> instance learns from this example and returns the prediction result for this example.
+</summary>
+            <returns>The prediction result.</returns>
+            <typeparam name="TPrediction">The prediction result type.</typeparam>
+        </member>
+        <member name="M:VW.VowpalWabbit.GetTopicAllocation(System.Int32)">
+            <summary>
+Return the <paramref name="top" /> topic weights.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbit.GetTopicAllocation">
+            <summary>
+Return full topic allocation [topic, feature].
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbit.HashFeature(System.String,System.UInt64)">
+            <summary>
+Hash the given feature <paramref name="s" />.
+</summary>
+            <param name="s">String to be hashed.</param>
+            <param name="u">Hash offset.</param>
+            <returns>The resulting hash code.</returns>
+            <remarks>The hash code depends on the vowpal wabbit instance as different has functions can be configured.</remarks>
+        </member>
+        <member name="M:VW.VowpalWabbit.HashFeatureNative(System.String,System.UInt64)">
+            <summary>
+Hash the given feature <paramref name="s" />.
+</summary>
+            <param name="s">String to be hashed.</param>
+            <param name="u">Hash offset.</param>
+            <returns>The resulting hash code.</returns>
+            <remarks>The hash code depends on the vowpal wabbit instance as different has functions can be configured.</remarks>
+        </member>
+        <member name="M:VW.VowpalWabbit.HashSpace(System.String)">
+            <summary>
+Hashes the given namespace <paramref name="s" />.
+</summary>
+            <param name="s">String to be hashed.</param>
+            <returns>The resulting hash code.</returns>
+            <remarks>The hash code depends on the vowpal wabbit instance as different has functions can be configured.</remarks>
+        </member>
+        <member name="M:VW.VowpalWabbit.HashSpaceNative(System.String)">
+            <summary>
+Hashes the given namespace <paramref name="s" />.
+</summary>
+            <param name="s">String to be hashed.</param>
+            <returns>The resulting hash code.</returns>
+            <remarks>The hash code depends on the vowpal wabbit instance as different has functions can be configured.</remarks>
+        </member>
+        <member name="M:VW.VowpalWabbit.ParseDecisionServiceJson(System.Byte[],System.Int32,System.Int32,System.Boolean,VW.VowpalWabbitDecisionServiceInteractionHeader@)">
+            <summary>
+Parses <paramref name="json" /> using the C++ parser and supports the extra wrapping introduced by Decision Service.
+TODO: this should return VowpalWabbitExampleCollection, but that would require moving VowpalWaabitExampleCollection to C++/CLI
+TODO: the header should be passed along with the List of VowpalWabbit examples, but that requires additional care wrt disposing items.
+</summary>
+            <param name="json">This needs to be null-terminated string.</param>
+            <param name="copyJson">If true the json array is copied prior to destructive parsing</param>
+            <returns>
+Returns a <see cref="T:VW.VowpalWabbitExample" /> ready to be used for <see cref="M:VW.VowpalWabbit.Learn(VW.VowpalWabbitExample)" /> or <see cref="M:VW.VowpalWabbit.Predict(VW.VowpalWabbitExample)" />.
+</returns>
+        </member>
+        <member name="M:VW.VowpalWabbit.ParseJson(System.String)">
+            <summary>
+Parses <paramref name="line" /> using the C++ parser.
+TODO: this should return VowpalWabbitExampleCollection, but that would require moving VowpalWaabitExampleCollection to C++/CLI
+</summary>
+            <returns>
+Returns a <see cref="T:VW.VowpalWabbitExample" /> ready to be used for <see cref="M:VW.VowpalWabbit.Learn(VW.VowpalWabbitExample)" /> or <see cref="M:VW.VowpalWabbit.Predict(VW.VowpalWabbitExample)" />.
+</returns>
+        </member>
+        <member name="M:VW.VowpalWabbit.ParseLine(System.String)">
+            <summary>
+Parses <paramref name="line" /> using the C++ parser.
+</summary>
+            <returns>
+Returns a <see cref="T:VW.VowpalWabbitExample" /> ready to be used for <see cref="M:VW.VowpalWabbit.Learn(VW.VowpalWabbitExample)" /> or <see cref="M:VW.VowpalWabbit.Predict(VW.VowpalWabbitExample)" />.
+</returns>
+        </member>
+        <member name="P:VW.VowpalWabbit.PerformanceStatistics">
+            <summary>
+Gets Collected performance statistics.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbit.RunMultiPass">
+            <summary>
+Run multi-passe training.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbit.#ctor(System.String)">
+            <summary>
+Initializes a new <see cref="T:VW.VowpalWabbit" /> instance.
+</summary>
+            <param name="args">Command line arguments.</param>
+        </member>
+        <member name="M:VW.VowpalWabbit.#ctor(VW.VowpalWabbitSettings)">
+            <summary>
+Initializes a new <see cref="T:VW.VowpalWabbit" /> instance.
+</summary>
+            <param name="settings">The settings.</param>
+        </member>
+        <member name="F:VW.VowpalWabbit.m_hasher">
+            <summary>
+The selected hasher method.
+</summary>
+            <remarks>
+Avoiding if-else for hash function selection. Delegates outperform function pointers according to http://stackoverflow.com/questions/13443250/performance-of-c-cli-function-pointers-versus-net-delegates
+</remarks>
+        </member>
+        <member name="M:VW.VowpalWabbit.GetHasher">
+            <summary>
+Select the right hash method based on args.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbit">
+            <summary>
+Simple string example based wrapper for vowpal wabbit.
+</summary>
+            <remarks>If possible use VowpalWabbit{T} types as this wrapper suffers from marshalling performance wise.</remarks>
+        </member>
+        <member name="M:VW.VowpalWabbitModel.#ctor(System.String)">
+            <param name="args">Command line arguments passed to native instance.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitModel.#ctor(VW.VowpalWabbitSettings)">
+            <summary>
+Initializes a new <see cref="T:VW.VowpalWabbitModel" /> instance.
+</summary>
+            <param name="settings">Arguments passed to native instance.</param>
+        </member>
+        <member name="T:VW.VowpalWabbitModel">
+            <summary>
+VowpalWabbit model wrapper used in multi-threaded scenarios.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitBase.SaveModel(System.IO.Stream)">
+            <summary>
+Persist model to <paramref name="stream" />.
+</summary>
+            <param name="stream">The destination stream for the model.</param>
+            <remarks>The stream is not closed to support embedded schemes.</remarks>
+        </member>
+        <member name="M:VW.VowpalWabbitBase.SaveModel(System.String)">
+            <summary>
+Persist model to <paramref name="filename" />.
+</summary>
+            <param name="filename">The destination filename for the model.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitBase.SaveModel">
+            <summary>
+Persist model to file specified by -i.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitBase.AreFeaturesCompatible(VW.VowpalWabbitBase)">
+            <summary>
+Compares features created by current instance are compatible to features created by <paramref name="other" />.
+</summary>
+            <returns>
+Null if compatible, otherwise the difference
+</returns>
+        </member>
+        <member name="M:VW.VowpalWabbitBase.Reload(System.String)">
+            <summary>
+Performs the following steps to reset the learning state:
+
+- Save model to in-memory buffer
+- Dispose existing instance
+- Initialize new instance from in-memory buffer
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitBase.ID">
+            <summary>
+The read/writable model id.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitBase.Arguments">
+            <summary>
+Extracted command line arguments.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitBase.Settings">
+            <summary>
+The settings used for this instance.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitBase.Dispose">
+            <summary>
+Cleanup.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitBase.InternalDispose">
+            <summary>
+Internal dipose using reference counting to delay disposal of shared native data structures.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitBase.Finalize">
+            <summary>
+Cleanup.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitBase.#ctor(VW.VowpalWabbitSettings)">
+            <summary>
+Initializes a new <see cref="T:VW.VowpalWabbitBase" /> instance.
+</summary>
+            <param name="settings">Command line arguments.</param>
+        </member>
+        <member name="F:VW.VowpalWabbitBase.m_examples">
+            <summary>
+Example pool. Kept in base to simplify deallocation.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitBase.m_isDisposed">
+            <summary>
+True if all nativedata structures are disposed.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitBase.DecrementReference">
+            <summary>
+Thread-safe decrement of reference count.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitBase.IncrementReference">
+            <summary>
+Thread-safe increment of reference count.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitBase.m_vw">
+            <summary>
+The native vowpal wabbit data structure.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitBase.m_instanceCount">
+            <summary>
+Reference count to native data structure.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitBase.m_arguments">
+            <summary>
+Extracted command line arguments.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitBase.m_model">
+            <summary>
+An optional shared model.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitBase.m_traceListener">
+            <summary>
+Handle to trace listener delegate, required to keep safe from garbage collection.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitBase.m_settings">
+            <summary>
+The settings used for this instance.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbitBase">
+            <summary>
+A base wrapper around vowpal wabbit machine learning instance.
+</summary>
+            <remarks>
+Since the model class must delay diposal of <see cref="F:VW.VowpalWabbitBase.m_vw" /> until all referencing
+VowpalWabbit instances are disposed, the base class does not dispose <see cref="F:VW.VowpalWabbitBase.m_vw" />.
+</remarks>
+        </member>
+        <member name="P:VW.VowpalWabbitArguments.InitialRegressors">
+            <summary>
+The list of input model filenames.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitArguments.FinalRegressor">
+            <summary>
+The output model filename.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitArguments.NumPasses">
+            <summary>
+Number of passes.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitArguments.TestOnly">
+            <summary>
+True if "-t" for test only mode supplied as part of arguments.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitArguments.Data">
+            <summary>
+The input data file.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbitArguments">
+            <summary>
+command line arguments extracted from native C++.
+</summary>
+        </member>
+        <member name="M:VW.IVowpalWabbitExamplePool.ReturnExampleToPool(VW.VowpalWabbitExample)">
+            <summary>
+Puts a native example data structure back into the pool.
+</summary>
+            <param name="example">The example to be returned.</param>
+        </member>
+        <member name="M:VW.IVowpalWabbitExamplePool.GetOrCreateNativeExample">
+            <summary>
+Gets or creates a new native examples.
+</summary>
+        </member>
+        <member name="T:VW.IVowpalWabbitExamplePool">
+            <summary>
+Owners of example must implement this interface.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitPredictionType.MultiClassProbabilities">
+            <summary>
+Use for multiclass predictions with probabilities
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitPredictionType.Probability">
+            <summary>
+Use for dynamicially determined predictions.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitPredictionType.Dynamic">
+            <summary>
+Use for dynamicially determined predictions.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitPredictionType.Topic">
+            <summary>
+Use for LDA topic predictions.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitPredictionType.ActionProbabilities">
+            <summary>
+Use for action score predictions.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitPredictionType.ActionScore">
+            <summary>
+Use for action score predictions.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitPredictionType.Multiclass">
+            <summary>
+Use for multi class predictions.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitPredictionType.Multilabel">
+            <summary>
+Use for multi label predictions.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitPredictionType.CostSensitive">
+            <summary>
+Use for cost sensitive predictions.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitPredictionType.Scalars">
+            <summary>
+Use for scalar predictions.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitPredictionType.ScalarConfidence">
+            <summary>
+Use for scalar predictions.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitPredictionType.Scalar">
+            <summary>
+Use for scalar predictions.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbitPredictionType">
+            <summary>
+Provides convenient collection of all prediction types.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitTopicPredictionFactory.PredictionType">
+            <summary>
+Returns the supported prediction type.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitTopicPredictionFactory.Create(vw*,example*)">
+            <summary>
+Extracts prediction results from example. The predicted topics.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbitTopicPredictionFactory">
+            <summary>
+A topic prediction result.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitActionProbabilitiesPredictionFactory.PredictionType">
+            <summary>
+Returns the supported prediction type.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbitActionProbabilitiesPredictionFactory">
+            <summary>
+A multi label prediction result.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitActionScorePredictionFactory.PredictionType">
+            <summary>
+Returns the supported prediction type.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbitActionScorePredictionFactory">
+            <summary>
+A action score prediction result.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitActionScoreBasePredictionFactory.PredictionType">
+            <summary>
+Returns the supported prediction type.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitActionScoreBasePredictionFactory.Create(vw*,example*)">
+            <summary>
+Extracts multilabel prediction results from example.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbitActionScoreBasePredictionFactory">
+            <summary>
+A action score/probability result.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitMultilabelPredictionFactory.PredictionType">
+            <summary>
+Returns the supported prediction type.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitMultilabelPredictionFactory.Create(vw*,example*)">
+            <summary>
+Extracts multilabel prediction results from example.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbitMultilabelPredictionFactory">
+            <summary>
+A multi label prediction result.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitMulticlassProbabilitiesPredictionFactory.PredictionType">
+            <summary>
+Returns the supported prediction type.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitMulticlassProbabilitiesPredictionFactory.Create(vw*,example*)">
+            <summary>
+Extracts cost sensitive prediction results from example, including confidence score.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbitMulticlassProbabilitiesPredictionFactory">
+            <summary>
+A cost sensitive prediction result with associated confidence score
+For -oaa --probabilities
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitMulticlassPredictionFactory.PredictionType">
+            <summary>
+Returns the supported prediction type.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitMulticlassPredictionFactory.Create(vw*,example*)">
+            <summary>
+Extracts cost sensitive prediction results from example.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbitMulticlassPredictionFactory">
+            <summary>
+A cost sensitive prediction result.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitCostSensitivePredictionFactory.PredictionType">
+            <summary>
+Returns the supported prediction type.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitCostSensitivePredictionFactory.Create(vw*,example*)">
+            <summary>
+Extracts cost sensitive prediction results from example.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbitCostSensitivePredictionFactory">
+            <summary>
+A cost sensitive prediction result.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitProbabilityPredictionFactory.PredictionType">
+            <summary>
+Returns the supported prediction type.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitProbabilityPredictionFactory.Create(vw*,example*)">
+            <summary>
+Extracts prediction results from example.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbitProbabilityPredictionFactory">
+            <summary>
+A scalar prediction result.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitScalarsPredictionFactory.PredictionType">
+            <summary>
+Returns the supported prediction type.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitScalarsPredictionFactory.Create(vw*,example*)">
+            <summary>
+Extracts prediction results from example.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbitScalarsPredictionFactory">
+            <summary>
+A scalar prediction result.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitScalarConfidencePredictionFactory.PredictionType">
+            <summary>
+Returns the supported prediction type.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitScalarConfidencePredictionFactory.Create(vw*,example*)">
+            <summary>
+Extracts prediction results from example.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbitScalarConfidencePredictionFactory">
+            <summary>
+A scalar prediction result.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitScalarPredictionFactory.PredictionType">
+            <summary>
+Returns the supported prediction type.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitScalarPredictionFactory.Create(vw*,example*)">
+            <summary>
+Extracts prediction results from example.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbitScalarPredictionFactory">
+            <summary>
+A scalar prediction result.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitDynamicPredictionFactory.PredictionType">
+            <summary>
+Returns the supported prediction type.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitDynamicPredictionFactory.Create(vw*,example*)">
+            <summary>
+Extracts prediction results from example.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbitDynamicPredictionFactory">
+            <summary>
+A scalar prediction result.
+</summary>
+        </member>
+        <member name="P:VW.IVowpalWabbitPredictionFactory`1.PredictionType">
+            <summary>
+Returns the supported prediction type.
+</summary>
+        </member>
+        <member name="M:VW.IVowpalWabbitPredictionFactory`1.Create(vw*,example*)">
+            <summary>
+Creates a new prediction result from an example and the associated VW instance.
+</summary>
+            <returns>A prediction result.</returns>
+            <remarks>Implementation must be thread-safe.</remarks>
+        </member>
+        <member name="T:VW.IVowpalWabbitPredictionFactory`1">
+            <summary>
+Interface for prediction factories enabling read-out of various prediction results in an extendable manner.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitArgumentDisagreementException.#ctor(VW.vw_argument_disagreement_exception!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+            <summary>
+Initializes a new instance of <see cref="T:VW.VowpalWabbitException" />.
+</summary>
+            <param name="ex">The native vowpal wabbit exception</param>
+        </member>
+        <member name="T:VW.VowpalWabbitArgumentDisagreementException">
+            <summary>
+A managed wrapper for native vowpal wabbit exceptions.
+</summary>
+            <remarks>
+As the default managed exception wrapping any native exception doesn't even capture exception::what()
+this wrapper was created.
+</remarks>
+        </member>
+        <member name="P:VW.VowpalWabbitException.LineNumber">
+            <summary>
+Gets the line number in which the wrapped exception occurred.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitException.Filename">
+            <summary>
+Gets the source filename in which the wrapped exception occurred.
+</summary>
+        </member>
+        <member name="M:VW.VowpalWabbitException.#ctor(VW.vw_exception!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+            <summary>
+Initializes a new instance of <see cref="T:VW.VowpalWabbitException" />.
+</summary>
+            <param name="ex">The native vowpal wabbit exception</param>
+        </member>
+        <member name="F:VW.VowpalWabbitException.m_lineNumber">
+            <summary>
+The line number in which the wrapped exception occurred.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitException.m_filename">
+            <summary>
+The source filename in which the wrapped exception occurred.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbitException">
+            <summary>
+A managed wrapper for native vowpal wabbit exceptions.
+</summary>
+            <remarks>
+As the default managed exception wrapping any native exception doesn't even capture exception::what()
+this wrapper was created.
+</remarks>
+        </member>
+        <member name="P:VW.VowpalWabbitPerformanceStatistics.BestConstantLoss">
+            <summary>
+The best constant loss since instance creation.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitPerformanceStatistics.BestConstant">
+            <summary>
+The best constant since instance creation.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitPerformanceStatistics.AverageLoss">
+            <summary>
+The average loss since instance creation.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitPerformanceStatistics.WeightedLabelSum">
+            <summary>
+The weighted sum of labels.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitPerformanceStatistics.NumberOfExamplesPerPass">
+            <summary>
+ The total number of examples per pass.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitPerformanceStatistics.WeightedExampleSum">
+            <summary>
+The weighted sum of examples.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitPerformanceStatistics.TotalNumberOfFeatures">
+            <summary>
+The total number of features seen since instance creation.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbitPerformanceStatistics">
+            <summary>
+Collected performance statistics.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitSettings.TraceListener">
+            <summary>
+Action invoked for each trace message.
+</summary>
+            <Remarks>
+The trace listener obeys the Verbose property, which defaults to false.
+</Remarks>
+        </member>
+        <member name="P:VW.VowpalWabbitSettings.EnableStringFloatCompact">
+            <summary>
+Enable compact float serialization for Vowpal Wabbit native string generation.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitSettings.EnableStringExampleGeneration">
+            <summary>
+Enable Vowpal Wabbit native string generation.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitSettings.ExampleCountPerRun">
+            <summary>
+In multi-threaded mode, this is the number of examples processed per run.
+After ecah run the models are synchronized.
+Defaults to 1000.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitSettings.MaxExampleQueueLengthPerInstance">
+            <summary>
+Maximum number of examples accepted by VowpalWabbitManager until Learn/Predict/... start to block. Defaults to UINT32_MAX.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitSettings.MaxExampleCacheSize">
+            <summary>
+Maximum number of serialized examples cached. Defaults to UINT32_MAX.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitSettings.EnableExampleCaching">
+            <summary>
+Set to true to disable example caching when used with a serializer. Defaults to true.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitSettings.Model">
+            <summary>
+Shared native vowpwal wabbit data structure.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitSettings.ModelStream">
+            <summary>
+Model used for initialization.
+</summary>
+        </member>
+        <member name="P:VW.VowpalWabbitSettings.Arguments">
+            <summary>
+Command line arguments.
+</summary>
+        </member>
+        <member name="T:VW.VowpalWabbitSettings">
+            <summary>
+Settings for wrapper.
+</summary>
+            <remarks>Constructor with optional arguments was dropped as it broke version remapping (signature changed with the introduction of new options).</remarks>
+        </member>
+        <member name="F:VW.VowpalWabbitExampleDistribution.RoundRobin">
+            <summary>
+Better runtime performance.
+</summary>
+        </member>
+        <member name="F:VW.VowpalWabbitExampleDistribution.UniformRandom">
+            <summary>
+Statistically safer option.
+</summary>
+        </member>
+        <member name="T:features.features_value_index_audit_range">
+defines a "range" usable by C++ 11 for loops
+</member>
+        <member name="T:features">
+the core definition of a set of features.
+</member>
+        <member name="T:features_value_index_audit_iterator">
+iterator over values, indicies and audit space names
+</member>
+        <member name="T:features_value_index_iterator">
+iterator over values and indicies
+</member>
+        <member name="M:features_value_iterator.value">
+\return reference to the current value
+</member>
+        <member name="T:features_value_iterator">
+iterator over feature values only
+</member>
+    </members>
+</doc>

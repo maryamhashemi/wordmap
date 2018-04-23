@@ -1,0 +1,2969 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VowpalWabbit</name>
+    </assembly>
+    <members>
+        <member name="T:VW.ActionDependentFeature`1">
+            <summary>
+            A tuple of an action dependent feature and the corresponding index.
+            </summary>
+            <typeparam name="TActionDependentFeature">The action dependent feature type.</typeparam>
+        </member>
+        <member name="P:VW.ActionDependentFeature`1.Index">
+            <summary>
+            The index within the multi-line example.
+            </summary>
+        </member>
+        <member name="P:VW.ActionDependentFeature`1.Probability">
+            <summary>
+            The index within the multi-line example.
+            </summary>
+        </member>
+        <member name="P:VW.ActionDependentFeature`1.Feature">
+            <summary>
+            The feature object.
+            </summary>
+        </member>
+        <member name="T:VW.Extensions">
+            <summary>
+            LINQ extensions.
+            </summary>
+        </member>
+        <member name="M:VW.Extensions.Subset``1(System.Collections.Generic.IEnumerable{``0},System.Int32[])">
+            <summary>
+            Returns the elements specified by indicies/
+            </summary>
+            <typeparam name="T">The element type.</typeparam>
+            <param name="source">The enumerable source.</param>
+            <param name="indicies">The indicies to be selected.</param>
+            <returns>The subset of elements.</returns>
+        </member>
+        <member name="M:VW.Extensions.IndexOf``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})">
+            <summary>
+            Returns the index of the first element matching <paramref name="predicate"/>.
+            </summary>
+            <typeparam name="T">The collection type.</typeparam>
+            <param name="source">The source enumerable.</param>
+            <param name="predicate">The predicate to match.</param>
+            <returns>The index of the first element to match or -1 if none matched.</returns>
+        </member>
+        <member name="T:VW.ObjectFactory">
+            <summary>
+            Helper to conveniently create <see cref="T:VW.ObjectFactory`2"/>.
+            </summary>
+        </member>
+        <member name="M:VW.ObjectFactory.Create``2(``0,System.Func{``0,``1})">
+            <summary>
+            Disposable object factory.
+            </summary>
+            <typeparam name="TSource">The disposable context needed to create objects of <typeparamref name="TObject"/>.</typeparam>
+            <typeparam name="TObject">The type of the objects to be created.</typeparam>
+        </member>
+        <member name="T:VW.ObjectFactory`2">
+            <summary>
+            Disposable object factory.
+            </summary>
+            <typeparam name="TSource">The disposable context needed to create objects of <typeparamref name="TObject"/>.</typeparam>
+            <typeparam name="TObject">The type of the objects to be created.</typeparam>
+        </member>
+        <member name="F:VW.ObjectFactory`2.creator">
+            <summary>
+            Factory function to create new instances.
+            </summary>
+        </member>
+        <member name="F:VW.ObjectFactory`2.source">
+            <summary>
+            The source object passed to <see cref="F:VW.ObjectFactory`2.creator"/>.
+            </summary>
+        </member>
+        <member name="F:VW.ObjectFactory`2.disposed">
+            <summary>
+            True if this instance is already disposed.
+            </summary>
+        </member>
+        <member name="M:VW.ObjectFactory`2.Create">
+            <summary>
+            Creates a new object of type T.
+            </summary>
+        </member>
+        <member name="M:VW.ObjectFactory`2.Dispose">
+            <summary>
+            Cleanup.
+            </summary>
+        </member>
+        <member name="T:VW.PooledObject`2">
+            <summary>
+            A strongly-typed pooled object.
+            </summary>
+            <typeparam name="TSource">The disposable context needed to create objects of <typeparamref name="TObject"/>.</typeparam>
+            <typeparam name="TObject">The type of the objects to be created.</typeparam>
+        </member>
+        <member name="F:VW.PooledObject`2.pool">
+            <summary>
+            The parent pool.
+            </summary>
+        </member>
+        <member name="M:VW.PooledObject`2.#ctor(VW.ObjectPool{`0,`1},System.Int32,`1)">
+            <summary>
+            Initializes a new instance of the <see cref="T:VW.PooledObject`2"/> class.
+            </summary>
+            <param name="pool">The parent pool.</param>
+            <param name="version">The version of the pool at time of creation of this instance.</param>
+            <param name="value">The actual pooled object.</param>
+        </member>
+        <member name="P:VW.PooledObject`2.Value">
+            <summary>
+            The actual value.
+            </summary>
+        </member>
+        <member name="P:VW.PooledObject`2.Version">
+            <summary>
+            Factory version used to create Value.
+            </summary>
+        </member>
+        <member name="M:VW.PooledObject`2.Dispose">
+            <summary>
+            Return to pool.
+            </summary>
+        </member>
+        <member name="T:VW.Serializer.Attributes.CacheableAttribute">
+            <summary>
+            Annotate an example class that's generated output should be cached.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.Attributes.CacheableAttribute.EqualityComparer">
+            <summary>
+            Specify an equality comparer to be used for the dictionary cache.
+            If non is specified, default behavior of the <see cref="T:System.Collections.Generic.Dictionary`2"/>
+            </summary>
+        </member>
+        <member name="T:VW.Serializer.Attributes.FeatureAttribute">
+            <summary>
+            Annotate properties that should be serialized to Vowpal Wabbit
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.Attributes.FeatureAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:VW.Serializer.Attributes.FeatureAttribute"/> class.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.Attributes.FeatureAttribute.Namespace">
+            <summary>
+            The namespace. Corresponds to the string literal after | in the native VW line format. <br/>
+            e.g. user in "|user :0.1 :0.2"
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.Attributes.FeatureAttribute.Enumerize">
+            <summary>
+            If true, features will be converted to string and then hashed.
+            In VW line format: Age:15 (Enumerize=false), Age_15 (Enumerize=true)
+            </summary>
+            <remarks>Defaults to false.</remarks>
+        </member>
+        <member name="P:VW.Serializer.Attributes.FeatureAttribute.AddAnchor">
+            <summary>
+            If true, an anchoring feature (0:1) will be inserted at front.
+            This is required if --interact is used to mark the beginning of the feature namespace,
+            as 0-valued features are removed.
+            </summary>
+            <remarks>Defaults to false.</remarks>
+        </member>
+        <member name="P:VW.Serializer.Attributes.FeatureAttribute.Dictify">
+            <summary>
+            If true, the string serialization will collect the feature into a dictionary and output a surrogate.
+            </summary>
+            <remarks>Defaults to null, which inherits from parent. If no parent information available, defaults to false.</remarks>
+        </member>
+        <member name="P:VW.Serializer.Attributes.FeatureAttribute.InternalDictify">
+            <summary>
+            Cope with potential null values.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.Attributes.FeatureAttribute.InternalFeatureGroup">
+            <summary>
+            Cope with potential null values.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.Attributes.FeatureAttribute.FeatureGroup">
+            <summary>
+            The regular VW string interface interprets the first character of the namespace as the feature group.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.Attributes.FeatureAttribute.Name">
+            <summary>
+            Allows feature name override.
+            </summary>
+            <remarks>Defaults to reflected property name.</remarks>
+        </member>
+        <member name="P:VW.Serializer.Attributes.FeatureAttribute.Order">
+            <summary>
+            Specify the serialization order.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.Attributes.FeatureAttribute.StringProcessing">
+            <summary>
+            Configures string pre-processing before hashing. All options are compatible with VW string format.
+            </summary>
+            <remarks>Defaults to <see cref="F:VW.Serializer.StringProcessing.Split"/></remarks>
+        </member>
+        <member name="T:VW.Serializer.Attributes.LabelAttribute">
+            <summary>
+            Used to annotate properties designated as labels.
+            </summary>
+        </member>
+        <member name="T:VW.Serializer.TypeInspector">
+            <summary>
+            Utility class analyzing compile-time <see cref="T:VW.Serializer.Attributes.FeatureAttribute"/> annotation.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.TypeInspector.All">
+            <summary>
+            All properties are used as features.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.TypeInspector.Default">
+            <summary>
+            Only properties annotated using Feature attribute are considered.
+            </summary>
+        </member>
+        <member name="T:VW.Serializer.ConfigInspector">
+            <summary>
+            Constructs a marshalling schema based on string based configuration using 
+            this format: Property.Property.Property(Enumerize = true, Namespace = , ...)
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.ConfigInspector.LineRegex">
+            <summary>
+            Format: Property.Property.Property(Enumerize = true, Namespace = , ...)
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.ConfigInspector.CreateSchema(System.Type,System.String,System.Action{System.String})">
+            <summary>
+            Creates a <see cref="T:VW.Serializer.Schema"/> for the given <paramref name="type"/>.
+            </summary>
+            <param name="type">The type to be inspected.</param>
+            <param name="config">An optional config restricting the properties to be used as features.</param>
+            <param name="warnings">An otpional callback to signal warnings during inspection.</param>
+            <returns>Returns a schema describing the feature marshalling.</returns>
+        </member>
+        <member name="T:VW.Serializer.Intermediate.EnumerizedFeature`1">
+            <summary>
+            Feature description for enumerized features. Instead of estimating a single parameter/weight
+            for a given integer, VW will estimate a parameter/weight for each value (one-hot encoding, dummy variables)
+            </summary>
+            <typeparam name="T">The value type.</typeparam>
+        </member>
+        <member name="F:VW.Serializer.Intermediate.EnumerizedFeature`1.enumHashing">
+            <summary>
+            Enum hashing function.
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.Intermediate.EnumerizedFeature`1.#ctor(VW.VowpalWabbit,VW.Serializer.Intermediate.Namespace,System.String,System.Boolean,System.Boolean,System.Func{VW.Serializer.Intermediate.EnumerizedFeature{`0},System.Func{`0,System.UInt64}})">
+            <summary>
+            Initializes a new EnumerizedFeature.
+            </summary>
+            <param name="vw">Vowpal Wabbit instance required for hashing.</param>
+            <param name="ns">The associated namespace.</param>
+            <param name="name">The feature name.</param>
+            <param name="addAnchor"></param>
+            <param name="dictify">If true, enable dictionary extraction.</param>
+            <param name="enumHashing">The enumHash cache factory.</param>
+        </member>
+        <member name="M:VW.Serializer.Intermediate.EnumerizedFeature`1.FeatureHash(`0)">
+            <summary>
+            Hashes <paramref name="value"/> potentially using a cache.
+            </summary>
+            <param name="value">The value to be hashed.</param>
+            <returns>The hash of <see cref="P:VW.Serializer.Intermediate.Feature.Name"/> + <paramref name="value"/></returns>
+        </member>
+        <member name="M:VW.Serializer.Intermediate.EnumerizedFeature`1.FeatureHashInternal(`0)">
+            <summary>
+            Hashes <paramref name="value"/> directly (no caching).
+            </summary>
+            <param name="value">The value to be hashed.</param>
+            <returns>The hash of <see cref="P:VW.Serializer.Intermediate.Feature.Name"/> + <paramref name="value"/></returns>
+        </member>
+        <member name="T:VW.Serializer.Intermediate.Feature">
+            <summary>
+            The base feature description.
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.Intermediate.Feature.#ctor(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Initializes a new Feature.
+            </summary>
+            <param name="name"></param>
+            <param name="addAnchor"></param>
+            <param name="dictify"></param>
+        </member>
+        <member name="P:VW.Serializer.Intermediate.Feature.Name">
+            <summary>
+            The origin property name is used as the feature name.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.Intermediate.Feature.AddAnchor">
+            <summary>
+            If true, an anchoring feature (0:1) will be inserted at front.
+            This is required if --interact is used to mark the beginning of the feature namespace,
+            as 0-valued features are removed.
+            </summary>
+            <remarks>Defaults to false.</remarks>
+        </member>
+        <member name="P:VW.Serializer.Intermediate.Feature.Dictify">
+            <summary>
+            If true, the string serialization will collect the feature into a dictionary and output a surrogate.
+            </summary>
+            <remarks>Defaults to null, which inherits from parent. If no parent information available, defaults to false.</remarks>
+        </member>
+        <member name="T:VW.Serializer.Intermediate.Namespace">
+            <summary>
+            The intermediate namespace representation.
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.Intermediate.Namespace.#ctor(VW.VowpalWabbit,System.String,System.Nullable{System.Char})">
+            <summary>
+            Initializes a new <see cref="T:VW.Serializer.Intermediate.Namespace"/> instance.
+            </summary>
+            <param name="vw">VopwpalWabbit instance used for hashing.</param>
+            <param name="name">The namespace name.</param>
+            <param name="featureGroup">Defaults to space, if null.</param>
+        </member>
+        <member name="M:VW.Serializer.Intermediate.Namespace.#ctor(VW.VowpalWabbit,System.String)">
+            <summary>
+            Initializes a new <see cref="T:VW.Serializer.Intermediate.Namespace"/> instance.
+            </summary>
+            <param name="vw">VopwpalWabbit instance used for hashing.</param>
+            <param name="name">The namespace name. First character is treated as feature group. Defaults to space.</param>
+        </member>
+        <member name="P:VW.Serializer.Intermediate.Namespace.Name">
+            <summary>
+            Gets or sets the namespace name.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.Intermediate.Namespace.FeatureGroup">
+            <summary>
+            Gets or sets the feature group.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.Intermediate.Namespace.NamespaceHash">
+            <summary>
+            The pre-calculated hash.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.Intermediate.Namespace.NamespaceString">
+            <summary>
+            The string representation of the namespace.
+            </summary>
+        </member>
+        <member name="T:VW.Serializer.Intermediate.PreHashedFeature">
+            <summary>
+            The intermediate feature representation.
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.Intermediate.PreHashedFeature.#ctor(VW.VowpalWabbit,VW.Serializer.Intermediate.Namespace,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:VW.Serializer.Intermediate.PreHashedFeature"/> class.
+            </summary>
+            <param name="vw">The vowpal wabbit instance.</param>
+            <param name="ns">The namespace.</param>
+            <param name="name">The feature name/</param>
+            <param name="addAnchor">True if an anchor needs to be added, false otherwise.</param>
+            <param name="dictify"></param>
+        </member>
+        <member name="P:VW.Serializer.Intermediate.PreHashedFeature.FeatureHash">
+            <summary>
+            The pre-hashed feature hash.
+            </summary>
+        </member>
+        <member name="T:VW.Serializer.IVowpalWabbitSerializable">
+            <summary>
+            Types implementing custom serialization to VW should implement this interface.
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.IVowpalWabbitSerializable.Marshal(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature)">
+            <summary>
+            Marshals this object into native VW
+            </summary>
+            <param name="ctx"></param>
+            <param name="ns"></param>
+            <param name="feature"></param>
+        </member>
+        <member name="T:VW.Serializer.IVowpalWabbitMultiExampleSerializerCompiler`1">
+            <summary>
+            Interface for multi-example serializer compilers.
+            </summary>
+            <typeparam name="TExample">The example type.</typeparam>
+        </member>
+        <member name="M:VW.Serializer.IVowpalWabbitMultiExampleSerializerCompiler`1.GetNumberOfActionDependentExamples(`0)">
+            <summary>
+            Returns the number of action dependent examples <paramref name="example"/> holds.
+            </summary>
+            <param name="example">The example to inspect.</param>
+            <returns>Returns the number of action dependent examples <paramref name="example"/> holds.</returns>
+        </member>
+        <member name="T:VW.Serializer.IVowpalWabbitSerializer`1">
+            <summary>
+            Abstraction for single vs. multiline examples.
+            </summary>
+            <typeparam name="TExample">The user-defined type to be serialized.</typeparam>
+        </member>
+        <member name="P:VW.Serializer.IVowpalWabbitSerializer`1.EnableStringExampleGeneration">
+            <summary>
+            True if Vowpal Wabbit strings are generated, false otherwise.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.IVowpalWabbitSerializer`1.CachesExamples">
+            <summary>
+            True if this serializer caches examples, false otherwise.
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.IVowpalWabbitSerializer`1.SerializeToString(`0,VW.Labels.ILabel,System.Nullable{System.Int32},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.Object,System.String})">
+            <summary>
+            Serializes the given <paramref name="example"/> into a Vowpal Wabbit string.
+            </summary>
+            <param name="example">The example to serialize.</param>
+            <param name="label">The optional label to serialize.</param>
+            <param name="index">The optional index of the example, the <paramref name="label"/> should be attributed to.</param>
+            <param name="dictionary">Dictionary used to collect dictifyed features.</param>
+            <param name="fastDictionary">Dictionary used to collect dictifyed features.</param>
+            <returns>The serialized Vowpal Wabbit string formatted example.</returns>
+        </member>
+        <member name="M:VW.Serializer.IVowpalWabbitSerializer`1.Serialize(`0,VW.Labels.ILabel,System.Nullable{System.Int32})">
+            <summary>
+            Serializes the given <paramref name="example"/> into a native Vowpal Wabbit example.
+            </summary>
+            <param name="example">The example to seralize.</param>
+            <param name="label">The optional label to serialize.</param>
+            <param name="index">The optional index of the example, the <paramref name="label"/> should be attributed to.</param>
+            <returns>A Vowpal Wabbit example ready to be used for prediction and learning.</returns>
+        </member>
+        <member name="T:VW.Serializer.VowpalWabbitConstants">
+            <summary>
+            String constants used by VW.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.VowpalWabbitConstants.DefaultNamespace">
+            <summary>
+            The VW default namespace is denoted by a blank.
+            </summary>
+        </member>
+        <member name="T:VW.Serializer.VowpalWabbitDefaultMarshaller">
+            <summary>
+            The default marshaller for most types supported by VW.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.VowpalWabbitDefaultMarshaller.Instance">
+            <summary>
+            Singleton default marshaller as it is stateless.
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.PreHashedFeature,System.Boolean)">
+             <summary>
+             Marshals a boolean value into native VW.
+            
+             e.g. loggedIn = true yields "loggedIn" in VW native string format.
+             e.g. loggedIn = false yields an empty string.
+             </summary>
+             <param name="context">The marshalling context.</param>
+             <param name="ns">The namespace description.</param>
+             <param name="feature">The feature description.</param>
+             <param name="value">The actual feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalEnumFeature``1(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.EnumerizedFeature{``0},``0)">
+            <summary>
+            Marshals an enum value into native VW.
+            </summary>
+            <typeparam name="T">The enum type.</typeparam>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The actual feature value.</param>
+            <example>Gender = Male yields "GenderMale" in VW native string format.</example>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalEnumerizeFeature``1(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,``0)">
+            <summary>
+            Marshals any type into native VW, by constructing a 1-hot encoding using <see cref="M:System.Object.ToString"/>.
+            </summary>
+            <typeparam name="T">The type to be enumerized.</typeparam>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The actual feature value.</param>
+            <example><typeparamref name="T"/> is <see cref="T:System.Int32"/>, actual value '25' and <see cref="P:VW.Serializer.Intermediate.Feature.Name"/> is 'Age'.
+            The result is equivalent to 'Age25'.
+            </example>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeatureStringEscape(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.String)">
+            <summary>
+            Marshals the supplied string into VW native space. Spaces are escaped using '_'.
+            Only <paramref name="value"/> is serialized, <paramref name="feature"/> Name is ignored.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The actual feature value.</param>
+            <example><paramref name="value"/> is "New York". Result is "New_York".</example>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeatureStringEscapeAndIncludeName(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.String)">
+            <summary>
+            Marshals the supplied string into VW native space. Spaces are escaped using '_'. Includes the <see cref="P:VW.Serializer.Intermediate.Feature.Name"/> in the 1-hot encoded feature.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The actual feature value.</param>
+            <example><paramref name="value"/> is "New York". <paramref name="feature"/> Name is "Location". Result is "LocationNew_York".</example>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeatureStringSplit(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.String)">
+            <summary>
+            Marshals the supplied string into VW native space, by splitting the word by white space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The actual feature value.</param>
+            <example><paramref name="value"/> is "New York". Result is "New York", corresponding to 2 featuers in VW native space.</example>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature``2(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{``0,``1}})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TValue"></typeparam>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The actual feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.IDictionary)">
+             <summary>
+            
+             </summary>
+             <param name="context">The marshalling context.</param>
+             <param name="ns">The namespace description.</param>
+             <param name="feature">The feature description.</param>
+             <param name="value">The actual feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IEnumerable{System.String})">
+             <summary>
+            
+             </summary>
+             <param name="context">The marshalling context.</param>
+             <param name="ns">The namespace description.</param>
+             <param name="feature">The feature description.</param>
+             <param name="value">The actual feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,VW.Serializer.IVowpalWabbitSerializable)">
+             <summary>
+            
+             </summary>
+             <param name="context">The marshalling context.</param>
+             <param name="ns">The namespace description.</param>
+             <param name="feature">The feature description.</param>
+             <param name="value">The actual feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalNamespace(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,System.Action)">
+             <summary>
+            
+             </summary>
+             <param name="context">The marshalling context.</param>
+             <param name="ns">The namespace description.</param>
+             <param name="featureVisits"></param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalLabel(VW.Serializer.VowpalWabbitMarshalContext,VW.Labels.ILabel)">
+             <summary>
+            
+             </summary>
+             <param name="context">The marshalling context.</param>
+             <param name="label"></param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalLabel(VW.Serializer.VowpalWabbitMarshalContext,System.String)">
+             <summary>
+            
+             </summary>
+             <param name="context">The marshalling context.</param>
+             <param name="label"></param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.PreHashedFeature,System.Byte)">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Byte[])">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature values.</param>
+            <param name="offset">Start offset for feature values.</param>
+            <param name="length">Length of feature values.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IEnumerable{System.Byte})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.PreHashedFeature,System.SByte)">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.SByte[])">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.SByte[],System.Int32,System.Int32)">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature values.</param>
+            <param name="offset">Start offset for feature values.</param>
+            <param name="length">Length of feature values.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IEnumerable{System.SByte})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.PreHashedFeature,System.Int16)">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Int16[])">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Int16[],System.Int32,System.Int32)">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature values.</param>
+            <param name="offset">Start offset for feature values.</param>
+            <param name="length">Length of feature values.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IEnumerable{System.Int16})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.PreHashedFeature,System.Int32)">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Int32[])">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Int32[],System.Int32,System.Int32)">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature values.</param>
+            <param name="offset">Start offset for feature values.</param>
+            <param name="length">Length of feature values.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.PreHashedFeature,System.UInt16)">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.UInt16[])">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.UInt16[],System.Int32,System.Int32)">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature values.</param>
+            <param name="offset">Start offset for feature values.</param>
+            <param name="length">Length of feature values.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IEnumerable{System.UInt16})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.PreHashedFeature,System.UInt32)">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.UInt32[])">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.UInt32[],System.Int32,System.Int32)">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature values.</param>
+            <param name="offset">Start offset for feature values.</param>
+            <param name="length">Length of feature values.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IEnumerable{System.UInt32})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.PreHashedFeature,System.Single)">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Single[])">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Single[],System.Int32,System.Int32)">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature values.</param>
+            <param name="offset">Start offset for feature values.</param>
+            <param name="length">Length of feature values.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IEnumerable{System.Single})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.PreHashedFeature,System.Int64)">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Int64[])">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Int64[],System.Int32,System.Int32)">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature values.</param>
+            <param name="offset">Start offset for feature values.</param>
+            <param name="length">Length of feature values.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IEnumerable{System.Int64})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.PreHashedFeature,System.UInt64)">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.UInt64[])">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.UInt64[],System.Int32,System.Int32)">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature values.</param>
+            <param name="offset">Start offset for feature values.</param>
+            <param name="length">Length of feature values.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IEnumerable{System.UInt64})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.PreHashedFeature,System.Double)">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Double[])">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Double[],System.Int32,System.Int32)">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature values.</param>
+            <param name="offset">Start offset for feature values.</param>
+            <param name="length">Length of feature values.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IEnumerable{System.Double})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Byte,System.Byte})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Byte,System.SByte})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Byte,System.Int16})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Byte,System.Int32})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Byte,System.UInt16})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Byte,System.UInt32})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Byte,System.Single})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Byte,System.Int64})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Byte,System.UInt64})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Byte,System.Double})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.SByte,System.Byte})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.SByte,System.SByte})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.SByte,System.Int16})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.SByte,System.Int32})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.SByte,System.UInt16})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.SByte,System.UInt32})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.SByte,System.Single})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.SByte,System.Int64})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.SByte,System.UInt64})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.SByte,System.Double})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Int16,System.Byte})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Int16,System.SByte})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Int16,System.Int16})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Int16,System.Int32})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Int16,System.UInt16})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Int16,System.UInt32})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Int16,System.Single})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Int16,System.Int64})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Int16,System.UInt64})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Int16,System.Double})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Int32,System.Byte})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Int32,System.SByte})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Int32,System.Int16})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Int32,System.Int32})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Int32,System.UInt16})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Int32,System.UInt32})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Int32,System.Single})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Int32,System.Int64})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Int32,System.UInt64})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.Int32,System.Double})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.UInt16,System.Byte})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.UInt16,System.SByte})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.UInt16,System.Int16})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.UInt16,System.Int32})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.UInt16,System.UInt16})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.UInt16,System.UInt32})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.UInt16,System.Single})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.UInt16,System.Int64})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.UInt16,System.UInt64})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.UInt16,System.Double})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.String,System.Byte})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalNamespace(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.String,System.Byte[]})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.String,System.SByte})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalNamespace(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.String,System.SByte[]})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.String,System.Int16})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalNamespace(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.String,System.Int16[]})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.String,System.Int32})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalNamespace(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.String,System.Int32[]})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.String,System.UInt16})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalNamespace(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.String,System.UInt16[]})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.String,System.UInt32})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalNamespace(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.String,System.UInt32[]})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.String,System.Single})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalNamespace(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.String,System.Single[]})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.String,System.Int64})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalNamespace(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.String,System.Int64[]})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.String,System.UInt64})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalNamespace(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.String,System.UInt64[]})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalFeature(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.String,System.Double})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitDefaultMarshaller.MarshalNamespace(VW.Serializer.VowpalWabbitMarshalContext,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature,System.Collections.Generic.IDictionary{System.String,System.Double[]})">
+            <summary>
+            Transfers feature data to native space.
+            </summary>
+            <param name="context">The marshalling context.</param>
+            <param name="ns">The namespace description.</param>
+            <param name="feature">The feature description.</param>
+            <param name="value">The feature value.</param>
+        </member>
+        <member name="T:VW.Serializer.VowpalWabbitMarshalContext">
+            <summary>
+            Context containing state during example marshalling.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.VowpalWabbitMarshalContext.disposeExampleBuilder">
+            <summary>
+            If true disposes the example builder. Otherwise it's not owned by this instance.
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitMarshalContext.#ctor(VW.IVowpalWabbitExamplePool,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.Object,System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:VW.Serializer.VowpalWabbitMarshalContext"/> class.
+            </summary>
+            <param name="vwPool">The VW instance the example will be imported to.</param>
+            <param name="dictionary">Dictionary used for dictify operation.</param>
+            <param name="fastDictionary">Dictionary used for dictify operation.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitMarshalContext.#ctor(VW.VowpalWabbit,VW.VowpalWabbitExampleBuilder,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.Object,System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:VW.Serializer.VowpalWabbitMarshalContext"/> class.
+            </summary>
+            <param name="vw">The VW instance the example will be imported to.</param>
+            <param name="exampleBuilder">A shared example builder.</param>
+            <param name="dictionary">Dictionary used for dictify operation.</param>
+            <param name="fastDictionary">Dictionary used for dictify operation.</param>
+        </member>
+        <member name="P:VW.Serializer.VowpalWabbitMarshalContext.VW">
+            <summary>
+            The VW instance the produce example will be imported to.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.VowpalWabbitMarshalContext.StringExample">
+            <summary>
+            See https://github.com/JohnLangford/vowpal_wabbit/wiki/Input-format for reference
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.VowpalWabbitMarshalContext.StringLabel">
+            <summary>
+            The VW string version of the label.
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitMarshalContext.ToString">
+            <summary>
+            Creates the VW string for this example.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:VW.Serializer.VowpalWabbitMarshalContext.Dictionary">
+            <summary>
+            Used if dictify is true. Maps from serialized feature to surrogate key.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.VowpalWabbitMarshalContext.FastDictionary">
+            <summary>
+            Used if dictify is true. Maps from raw feature value (e.g. int[]) to serialized feature.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.VowpalWabbitMarshalContext.ExampleBuilder">
+            <summary>
+            Used to build examples.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.VowpalWabbitMarshalContext.NamespaceBuilder">
+            <summary>
+            Used to build a namespace.
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitMarshalContext.AppendStringExample(System.Boolean,System.String,System.Object[])">
+            <summary>
+            Formats <paramref name="args"/> based on <paramref name="format"/> to the string example buffer.
+            </summary>
+            <param name="dictify">If true, performs dictionarization on the serialized string and inserts a surrogate.</param>
+            <param name="format">The string format used to serialize <paramref name="args"/>.</param>
+            <param name="args">The arguments to the string format operation.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitMarshalContext.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitMultiExampleSerializer`2.SerializeToString(`0,VW.Labels.ILabel,System.Nullable{System.Int32},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.Object,System.String})">
+            <summary>
+            Serializes the given <paramref name="example"/> to VW string format.
+            </summary>
+            <param name="example">The example to serialize.</param>
+            <param name="label">The label to serialize.</param>
+            <param name="index">The optional index of the example, the <paramref name="label"/> should be attributed to.</param>
+            <param name="dictionary">Dictionary used for dictify operation.</param>
+            <param name="fastDictionary">Dictionary used for dictify operation.</param>
+            <returns>The resulting VW string.</returns>
+        </member>
+        <member name="T:VW.Serializer.VowpalWabbitMultiExampleSerializerCompiler">
+            <summary>
+            Factory class to create <see cref="T:VW.Serializer.IVowpalWabbitSerializer`1"/>.
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitMultiExampleSerializerCompiler.TryCreate``1(VW.VowpalWabbitSettings,VW.Serializer.Schema)">
+            <summary>
+            Creates a serializer for <typeparamref name="TExample"/> based on <paramref name="settings"/> and <paramref name="schema"/>,
+            </summary>
+            <typeparam name="TExample">The example type.</typeparam>
+            <param name="settings">Settings for inspection.</param>
+            <param name="schema">The schema used for serializer creation.</param>
+            <returns>If the schema is valid a compiler is created, otherwise null.</returns>
+        </member>
+        <member name="T:VW.Serializer.VowpalWabbitSingleExampleSerializer`1">
+            <summary>
+            A serializer from a user type (TExample) to a native Vowpal Wabbit example type.
+            </summary>
+            <typeparam name="TExample">The source example type.</typeparam>
+        </member>
+        <member name="P:VW.Serializer.VowpalWabbitSingleExampleSerializer`1.CachesExamples">
+            <summary>
+            True if this instance caches examples, false otherwise.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.VowpalWabbitSingleExampleSerializer`1.EnableStringExampleGeneration">
+            <summary>
+            True if string examples are generated in parallel to native examples.
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitSingleExampleSerializer`1.SerializeToString(`0,VW.Labels.ILabel,System.Nullable{System.Int32},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.Object,System.String})">
+            <summary>
+            Serializes the given <paramref name="example"/> to VW string format.
+            </summary>
+            <param name="example">The example to serialize.</param>
+            <param name="label">The label to serialize.</param>
+            <param name="index">The optional index of the example, the <paramref name="label"/> should be attributed to.</param>
+            <param name="dictionary">Dictionary used for dictify operation.</param>
+            <param name="fastDictionary">Dictionary used for dictify operation.</param>
+            <returns>The resulting VW string.</returns>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitSingleExampleSerializer`1.VW#Serializer#IVowpalWabbitSerializer{TExample}#Serialize(`0,VW.Labels.ILabel,System.Nullable{System.Int32})">
+            <summary>
+            Serialize the example.
+            </summary>
+            <param name="example">The example to serialize.</param>
+            <param name="label">The label to be serialized.</param>
+            <param name="index">The optional index of the example, the <paramref name="label"/> should be attributed to.</param>
+            <returns>The serialized example.</returns>
+            <remarks>If <typeparamref name="TExample"/> is annotated using the Cachable attribute, examples are returned from cache.</remarks>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitSingleExampleSerializer`1.Serialize(`0,VW.Labels.ILabel,System.Nullable{System.Int32})">
+            <summary>
+            Serialize the example.
+            </summary>
+            <param name="example">The example to serialize.</param>
+            <param name="label">The label to be serialized.</param>
+            <param name="index">The optional index of the example, the <paramref name="label"/> should be attributed to.</param>
+            <returns>The serialized example.</returns>
+            <remarks>If <typeparamref name="TExample"/> is annotated using the Cachable attribute, examples are returned from cache.</remarks>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitSingleExampleSerializer`1.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.VowpalWabbitSingleExampleSerializer`1.Native">
+            <summary>
+            The associated native instance.
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitSingleExampleSerializer`1.GetOrCreateNativeExample">
+            <summary>
+            Gets an already allocated instance from the example pool or creates a new one.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitSingleExampleSerializer`1.ReturnExampleToPool(VW.VowpalWabbitExample)">
+            <summary>
+            Accepts an example back into this pool.
+            </summary>
+            <param name="example">The example to be returned.</param>
+        </member>
+        <member name="T:VW.Serializer.IVowpalWabbitSerializerCompiler`1">
+            <summary>
+            Abstraction for single vs. multiline examples.
+            </summary>
+            <typeparam name="TExample">The user-defined type to be serialized.</typeparam>
+        </member>
+        <member name="M:VW.Serializer.IVowpalWabbitSerializerCompiler`1.Create(VW.VowpalWabbit)">
+            <summary>
+            Creates a new serializer for the given type.
+            </summary>
+            <param name="vw">The VW instance this serializer is associated with.</param>
+            <returns>A ready to use serializer.</returns>
+        </member>
+        <member name="T:VW.Serializer.VowpalWabbitSerializerFactory">
+            <summary>
+            Factory to ease creation of serializers.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.VowpalWabbitSerializerFactory.SerializerCache">
+            <summary>
+            Example and example result type based serializer cache.
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitSerializerFactory.CreateSerializer``1(VW.VowpalWabbitSettings)">
+            <summary>
+            Creates a serializer for the given type and settings.
+            </summary>
+            <typeparam name="TExample">The user type to serialize.</typeparam>
+            <param name="settings"></param>
+            <returns></returns>
+        </member>
+        <member name="T:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1">
+            <summary>
+            Compiles a serializers for the given example user type.
+            </summary>
+            <typeparam name="TExample">The example user type.</typeparam>
+            <returns>A serializer for the given user example type.</returns>
+        </member>
+        <member name="T:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.FeatureExpressionInternal">
+            <summary>
+            Internal structure collecting all itmes required to marshal a single feature.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.FeatureExpressionInternal.Source">
+            <summary>
+            The supplied feature expression.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.FeatureExpressionInternal.MarshalMethod">
+            <summary>
+            The resolved mrarshalling method.
+            </summary>
+        </member>
+        <member name="T:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.MarshalMethod">
+            <summary>
+            Describes the actual marshalling method and the feature type (e.g. <see cref="T:VW.Serializer.Intermediate.PreHashedFeature"/>).
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.MarshalMethod.Method">
+            <summary>
+            The actual marshalling method.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.MarshalMethod.MetaFeatureType">
+            <summary>
+            The feature type (e.g. <see cref="T:VW.Serializer.Intermediate.PreHashedFeature"/>).
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.MarshalMethod.IsNamespace">
+            <summary>
+            True if the method can marshal a full namespace.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.allFeatures">
+            <summary>
+            All discovered features.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.marshallerTypes">
+            <summary>
+            Ordered list of featurizer types. Marshalling methods are resolved in order of this list.
+            <see cref="T:VW.Serializer.VowpalWabbitDefaultMarshaller"/> is added last as default.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.body">
+            <summary>
+            The main body of the serializer holding preemptive calcutions (e.g. <see cref="T:VW.Serializer.Intermediate.PreHashedFeature"/>.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.perExampleBody">
+            <summary>
+            The body executed for example.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.variables">
+            <summary>
+            Local variables.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.namespaceVariables">
+            <summary>
+            Local variables holding namespaces.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.vwParameter">
+            <summary>
+            The parameter of the main lambda to <see cref="T:VW.VowpalWabbit"/>.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.contextParameter">
+            <summary>
+            The parameter of the main lambda to <see cref="T:VW.Serializer.VowpalWabbitMarshalContext"/>.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.exampleParameter">
+            <summary>
+            The parameter of the per example lambda to <see cref="T:VW.VowpalWabbitExample"/>.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.labelParameter">
+            <summary>
+            The parameter of the per example lambda to <see cref="T:VW.Labels.ILabel"/>
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.marshallers">
+            <summary>
+            The list of featurizers.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.metaFeatures">
+            <summary>
+            The list of meta features such as <see cref="T:VW.Serializer.Intermediate.PreHashedFeature"/>.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.disableStringExampleGeneration">
+            <summary>
+            If true, VowpalWabbit string generation is disabled.
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.VW#Serializer#IVowpalWabbitSerializerCompiler{TExample}#Create(VW.VowpalWabbit)">
+            <summary>
+            Creates a bound serializers.
+            </summary>
+            <param name="vw">The vw instance to bind to.</param>
+            <returns></returns>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.Create(VW.VowpalWabbit)">
+            <summary>
+            Creates a serializer for <typeparamref name="TExample"/> bound to <paramref name="vw"/>.
+            </summary>
+            <param name="vw">The VW native instance examples will be assocated with.</param>
+            <returns>A serializer for <typeparamref name="TExample"/>.</returns>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.CreateMarshallers">
+            <summary>
+            Define variables and instantiate marshaller types.
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.ResolveFeatureMarshallingMethods">
+            <summary>
+            Resolve methods for each feature base on feature type and configuration.
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.CreateParameters">
+            <summary>
+            define functions input parameter
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.CreateFeature(VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler{`0}.FeatureExpressionInternal,System.Linq.Expressions.Expression)">
+            <summary>
+            Instantiate the meta information object such as <see cref="T:VW.Serializer.Intermediate.PreHashedFeature"/>
+            for a given feature.
+            </summary>
+            <param name="featureInternal">The feature.</param>
+            <param name="namespace">The namespace.</param>
+            <returns>The "new" expression for the meta information object.</returns>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.CreateNew(System.Type,System.Linq.Expressions.Expression[])">
+            <summary>
+            Helper to create the "new" expression using a matching constructor.
+            </summary>
+            <param name="type">The type of the new object.</param>
+            <param name="constructorParameters">The actual parameters for the constructor.</param>
+            <returns>The "new" expression bound to <paramref name="constructorParameters"/>.</returns>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.CreateMarshallerCall(System.String,System.Linq.Expressions.Expression[])">
+            <summary>
+            Create the invocation expression of a marshalling method.
+            </summary>
+            <param name="methodName">The marshalling method to invoke.</param>
+            <param name="parameters">The parameters for this method.</param>
+        </member>
+        <member name="M:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.CreateLambdas">
+            <summary>
+            Creates the main lambda and the per example lambda.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.SourceExpression">
+            <summary>
+            The source expression tree <seealso cref="P:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.Func"/> is built from.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.VowpalWabbitSingleExampleSerializerCompiler`1.Func">
+            <summary>
+            The closure used for serialization.
+            </summary>
+        </member>
+        <member name="T:VW.VowpalWabbit`1">
+            <summary>
+            VW wrapper supporting data ingest using declarative serializer infrastructure.
+            </summary>
+            <typeparam name="TExample">The user type to be serialized.</typeparam>
+        </member>
+        <member name="F:VW.VowpalWabbit`1.vw">
+            <summary>
+            Native vw instance.
+            </summary>
+        </member>
+        <member name="F:VW.VowpalWabbit`1.serializer">
+            <summary>
+            The example serializer.
+            </summary>
+        </member>
+        <member name="F:VW.VowpalWabbit`1.compiledSerializer">
+            <summary>
+            The example serializer compilation. Useful when debugging.
+            </summary>
+        </member>
+        <member name="F:VW.VowpalWabbit`1.learnSerializer">
+            <summary>
+            The serializer used for learning. It's only set if the serializer is non-caching.
+            By having a second field there is one less check that has to be done in the hot path.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbit`1.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:VW.VowpalWabbit`1"/> class.
+            </summary>
+            <param name="args">Command line arguments passed to native instance.</param>
+        </member>
+        <member name="M:VW.VowpalWabbit`1.#ctor(VW.VowpalWabbitSettings)">
+            <summary>
+            Initializes a new instance of the <see cref="T:VW.VowpalWabbit`1"/> class.
+            </summary>
+            <param name="settings">Arguments passed to native instance.</param>
+        </member>
+        <member name="M:VW.VowpalWabbit`1.#ctor(VW.VowpalWabbit)">
+            <summary>
+            Initializes a new instance of the <see cref="T:VW.VowpalWabbit`1"/> class.
+            </summary>
+            <param name="vw">The native instance to wrap.</param>
+            <remarks>This instance takes ownership of <paramref name="vw"/> instance and disposes it.</remarks>
+        </member>
+        <member name="M:VW.VowpalWabbit`1.#ctor(VW.VowpalWabbit,VW.Serializer.IVowpalWabbitSerializerCompiler{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:VW.VowpalWabbit`1"/> class.
+            </summary>
+            <param name="vw">The native instance to wrap.</param>
+            <param name="compiledSerializer">The per-compiled serializer.</param>
+            <remarks>This instance takes ownership of <paramref name="vw"/> instance and disposes it.</remarks>
+        </member>
+        <member name="P:VW.VowpalWabbit`1.Native">
+            <summary>
+            The wrapped VW instance.
+            </summary>
+        </member>
+        <member name="P:VW.VowpalWabbit`1.Serializer">
+            <summary>
+            The serializer used to marshal examples.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbit`1.Learn(`0,VW.Labels.ILabel,System.Nullable{System.Int32})">
+            <summary>
+            Learns from the given example.
+            </summary>
+            <param name="example">The example to learn.</param>
+            <param name="label">The label for this <paramref name="example"/>.</param>
+            <param name="index">The optional index of the example, the <paramref name="label"/> should be attributed to.</param>
+        </member>
+        <member name="M:VW.VowpalWabbit`1.Learn``1(`0,VW.Labels.ILabel,VW.IVowpalWabbitPredictionFactory{``0})">
+            <summary>
+            Learn from the given example and returns the current prediction for it.
+            </summary>
+            <typeparam name="TPrediction">The prediction type.</typeparam>
+            <param name="example">The example to learn.</param>
+            <param name="label">The label for this <paramref name="example"/>.</param>
+            <param name="predictionFactory">The prediction factory to be used. See <see cref="T:VW.VowpalWabbitPredictionType"/>.</param>
+            <returns>The prediction for the given <paramref name="example"/>.</returns>
+        </member>
+        <member name="M:VW.VowpalWabbit`1.Predict(`0,VW.Labels.ILabel)">
+            <summary>
+            Predicts for the given example.
+            </summary>
+            <param name="example">The example to predict for.</param>
+            <param name="label">This label can be used to weight the example.</param>
+        </member>
+        <member name="M:VW.VowpalWabbit`1.Predict``1(`0,VW.IVowpalWabbitPredictionFactory{``0},VW.Labels.ILabel)">
+            <summary>
+            Predicts for the given example.
+            </summary>
+            <typeparam name="TPrediction">The prediction type.</typeparam>
+            <param name="example">The example to predict for.</param>
+            <param name="predictionFactory">The prediction factory to be used. See <see cref="T:VW.VowpalWabbitPredictionType"/>.</param>
+            <param name="label">This label can be used to weight the example.</param>
+        </member>
+        <member name="M:VW.VowpalWabbit`1.Learn(System.Collections.Generic.IReadOnlyCollection{`0},System.Int32,VW.Labels.ILabel)">
+            <summary>
+            Learn from the given example and return the current prediction for it.
+            </summary>
+            <param name="actionDependentFeatures">The action dependent features.</param>
+            <param name="index">The index of the example to learn within <paramref name="actionDependentFeatures"/>.</param>
+            <param name="label">The label for the example to learn.</param>
+        </member>
+        <member name="M:VW.VowpalWabbit`1.LearnAndPredict(System.Collections.Generic.IReadOnlyCollection{`0},System.Int32,VW.Labels.ILabel)">
+            <summary>
+            Learn from the given example and return the current prediction for it.
+            </summary>
+            <param name="actionDependentFeatures">The action dependent features.</param>
+            <param name="index">The index of the example to learn within <paramref name="actionDependentFeatures"/>.</param>
+            <param name="label">The label for the example to learn.</param>
+            <returns>The ranked prediction for the given examples.</returns>
+        </member>
+        <member name="M:VW.VowpalWabbit`1.Predict(System.Collections.Generic.IReadOnlyCollection{`0},System.Nullable{System.Int32},VW.Labels.ILabel)">
+            <summary>
+            Predict for the given example and return the current prediction for it.
+            </summary>
+            <param name="actionDependentFeatures">The action dependent features.</param>
+            <param name="index">The index of the example to evaluate within <paramref name="actionDependentFeatures"/>.</param>
+            <param name="label">The label for the example to evaluate.</param>
+            <returns>The ranked prediction for the given examples.</returns>
+        </member>
+        <member name="M:VW.VowpalWabbit`1.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="T:VW.VowpalWabbit`2">
+            <summary>
+            VW wrapper for multiline ingest.
+            </summary>
+            <typeparam name="TExample">The user type of the shared feature.</typeparam>
+            <typeparam name="TActionDependentFeature">The user type for each action dependent feature.</typeparam>
+        </member>
+        <member name="F:VW.VowpalWabbit`2.vw">
+            <summary>
+            The native wrapper.
+            </summary>
+        </member>
+        <member name="F:VW.VowpalWabbit`2.serializer">
+            <summary>
+            The shared example serializer.
+            </summary>
+        </member>
+        <member name="F:VW.VowpalWabbit`2.actionDependentFeatureSerializer">
+            <summary>
+            The action dependent feature serializer.
+            </summary>
+        </member>
+        <member name="F:VW.VowpalWabbit`2.actionDependentFeatureLearnSerializer">
+            <summary>
+            The action dependent feature serializer valid for learning. If example caching is enabled, this is null.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbit`2.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:VW.VowpalWabbit`2"/> class.
+            </summary>
+            <param name="args">Command line arguments passed to native instance.</param>
+        </member>
+        <member name="M:VW.VowpalWabbit`2.#ctor(VW.VowpalWabbitSettings)">
+            <summary>
+            Initializes a new instance of the <see cref="T:VW.VowpalWabbit`2"/> class.
+            </summary>
+            <param name="settings">Arguments passed to native instance.</param>
+        </member>
+        <member name="M:VW.VowpalWabbit`2.#ctor(VW.VowpalWabbit)">
+            <summary>
+            Initializes a new instance of the <see cref="T:VW.VowpalWabbit`2"/> class.
+            </summary>
+            <param name="vw">The native instance to wrap.</param>
+            <remarks>This instance takes ownership of <paramref name="vw"/> instance and disposes it.</remarks>
+        </member>
+        <member name="P:VW.VowpalWabbit`2.Native">
+            <summary>
+            The wrapped VW instance.
+            </summary>
+        </member>
+        <member name="P:VW.VowpalWabbit`2.ExampleSerializer">
+            <summary>
+            Internal example serializer.
+            </summary>
+        </member>
+        <member name="P:VW.VowpalWabbit`2.ActionDependentFeatureSerializer">
+            <summary>
+            Internal action dependent feature serializer.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbit`2.Learn(`0,System.Collections.Generic.IReadOnlyCollection{`1},System.Int32,VW.Labels.ILabel)">
+            <summary>
+            Learn from the given example and return the current prediction for it.
+            </summary>
+            <param name="example">The shared example.</param>
+            <param name="actionDependentFeatures">The action dependent features.</param>
+            <param name="index">The index of the example to learn within <paramref name="actionDependentFeatures"/>.</param>
+            <param name="label">The label for the example to learn.</param>
+        </member>
+        <member name="M:VW.VowpalWabbit`2.LearnAndPredict(`0,System.Collections.Generic.IReadOnlyCollection{`1},System.Int32,VW.Labels.ILabel)">
+            <summary>
+            Learn from the given example and return the current prediction for it.
+            </summary>
+            <param name="example">The shared example.</param>
+            <param name="actionDependentFeatures">The action dependent features.</param>
+            <param name="index">The index of the example to learn within <paramref name="actionDependentFeatures"/>.</param>
+            <param name="label">The label for the example to learn.</param>
+            <returns>The ranked prediction for the given examples.</returns>
+        </member>
+        <member name="M:VW.VowpalWabbit`2.Predict(`0,System.Collections.Generic.IReadOnlyCollection{`1},System.Nullable{System.Int32},VW.Labels.ILabel)">
+            <summary>
+            Learn from the given example and return the current prediction for it.
+            </summary>
+            <param name="example">The shared example.</param>
+            <param name="actionDependentFeatures">The action dependent features.</param>
+            <param name="index">The index of the example to evaluate within <paramref name="actionDependentFeatures"/>.</param>
+            <param name="label">The label for the example to evaluate.</param>
+            <returns>The ranked prediction for the given examples.</returns>
+        </member>
+        <member name="M:VW.VowpalWabbit`2.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="T:VW.ObjectPool`2">
+            <summary>
+            Thread-safe object pool supporting versioned updates.
+            </summary>
+            <typeparam name="TSource">The disposable context needed to create objects of <typeparamref name="TObject"/>.</typeparam>
+            <typeparam name="TObject">The type of the objects to be created.</typeparam>
+        </member>
+        <member name="F:VW.ObjectPool`2.rwLockSlim">
+            <summary>
+            Lock resources
+            </summary>
+        </member>
+        <member name="F:VW.ObjectPool`2.version">
+            <summary>
+            Version of the factory function.
+            </summary>
+        </member>
+        <member name="F:VW.ObjectPool`2.factory">
+            <summary>
+            Used to create new pooled objects.
+            </summary>
+        </member>
+        <member name="F:VW.ObjectPool`2.pool">
+            <summary>
+            The actual pool.
+            </summary>
+            <remarks>
+            To maximize reuse of previously cached items within the pooled objects.
+            (e.g. cached action dependent features)
+            </remarks>
+        </member>
+        <member name="M:VW.ObjectPool`2.#ctor(VW.ObjectFactory{`0,`1})">
+            <summary>
+            Initializes a new ObjectPool.
+            </summary>
+            <param name="factory">
+            An optional factory to create pooled objects on demand.
+            <see cref="M:VW.ObjectPool`2.GetOrCreate"/> will throw if the factory is still null when called.
+            </param>
+        </member>
+        <member name="M:VW.ObjectPool`2.UpdateFactory(VW.ObjectFactory{`0,`1})">
+            <summary>
+            Updates the object factory in a thread-safe manner.
+            </summary>
+            <param name="factory">The new object factory to be used.</param>
+        </member>
+        <member name="M:VW.ObjectPool`2.GetOrCreate">
+            <summary>
+            Returns an instance of TObject from the pool or creates a new instance using the objectFactory
+            if the pool is empty.
+            </summary>
+            <remarks>This method is thread-safe.</remarks>
+        </member>
+        <member name="M:VW.ObjectPool`2.ReturnObject(VW.PooledObject{`0,`1})">
+            <summary>
+            Returns <paramref name="pooledObject"/> to the pool of objects, given the version is still the same.
+            Otherwise <paramref name="pooledObject"/> is disposed.
+            </summary>
+            <param name="pooledObject">The object to be returned.</param>
+        </member>
+        <member name="M:VW.ObjectPool`2.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="T:VW.VowpalWabbitDynamic">
+            <summary>
+            Vowpal Wabbit wrapper for anonymous classes. Type used for serialization doesn't need to be known at compile time,
+            but it's checked at runtime.
+            </summary>
+            <remarks>For each call to <see cref="M:VW.VowpalWabbitDynamic.Learn(System.Object,VW.Labels.ILabel,System.Nullable{System.Int32})"/> there is additional overhead as the type is looked up in a dictionary compared to <see cref="T:VW.VowpalWabbit`1"/>.</remarks>
+        </member>
+        <member name="M:VW.VowpalWabbitDynamic.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:VW.VowpalWabbitDynamic"/> class.
+            </summary>
+            <param name="arguments">Command line arguments passed to native instance.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitDynamic.#ctor(VW.VowpalWabbitSettings)">
+            <summary>
+            Initializes a new instance of the <see cref="T:VW.VowpalWabbitDynamic"/> class.
+            </summary>
+            <param name="settings">Arguments passed to native instance.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitDynamic.Learn(System.Object,VW.Labels.ILabel,System.Nullable{System.Int32})">
+            <summary>
+            Learns from the given example.
+            </summary>
+            <param name="example">The example to learn.</param>
+            <param name="label">The optional label for this <paramref name="example"/>.</param>
+            <param name="index">The optional index of the example, the <paramref name="label"/> should be attributed to.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitDynamic.Learn``1(System.Object,VW.IVowpalWabbitPredictionFactory{``0},VW.Labels.ILabel,System.Nullable{System.Int32})">
+            <summary>
+            Learns from the given example and returns the current prediction.
+            </summary>
+            <param name="example">The example to learn.</param>
+            <param name="predictionFactory">The prediction factory used to extract the prediction. Use <see cref="T:VW.VowpalWabbitPredictionType"/>.</param>
+            <param name="label">The optional label for this <paramref name="example"/>.</param>
+            <param name="index">The optional index of the example, the <paramref name="label"/> should be attributed to.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitDynamic.Predict``1(System.Object,VW.IVowpalWabbitPredictionFactory{``0},VW.Labels.ILabel,System.Nullable{System.Int32})">
+            <summary>
+            Predict for the given example and return the current prediction for it.
+            </summary>
+            <typeparam name="TPrediction"></typeparam>
+            <param name="example"></param>
+            <param name="predictionFactory"></param>
+            <param name="index">The optional index of the example to evaluate within </param>
+            <param name="label">The optional label for the example to evaluate.</param>
+            <returns></returns>
+        </member>
+        <member name="P:VW.VowpalWabbitDynamic.Native">
+            <summary>
+            The wrapped VW instance.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitDynamic.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="T:VW.VowpalWabbitExampleCollection">
+            <summary>
+            Base class for JSON deserialization result.
+            </summary>
+        </member>
+        <member name="F:VW.VowpalWabbitExampleCollection.vw">
+            <summary>
+            The native VW instance.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitExampleCollection.#ctor(VW.VowpalWabbit)">
+            <summary>
+            Initializes a new instance of the <see cref="T:VW.VowpalWabbitExampleCollection"/> class.
+            </summary>
+            <param name="vw">The VW native instance.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitExampleCollection.Learn(VW.VowpalWabbit)">
+            <summary>
+            Learns this example on the VW instance used for marshalling or the optionally passed on <paramref name="vw"/>.
+            </summary>
+            <param name="vw">The optional VW instance used for learning. Defaults to the one used for marshalling.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitExampleCollection.Predict(VW.VowpalWabbit)">
+            <summary>
+            Predicts for this example.
+            </summary>
+            <param name="vw">Use this VW instance for prediction instead of the one the example was created from.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitExampleCollection.Learn``1(VW.IVowpalWabbitPredictionFactory{``0},VW.VowpalWabbit)">
+            <summary>
+            Learn from this example and returns the current prediction for it.
+            </summary>
+            <typeparam name="TPrediction">The prediction type.</typeparam>
+            <param name="predictionFactory">The prediction factory to be used. See <see cref="T:VW.VowpalWabbitPredictionType"/>.</param>
+            <returns>The prediction for the this example.</returns>
+            <param name="vw">Use this VW instance for learning instead of the one the example was created from.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitExampleCollection.Predict``1(VW.IVowpalWabbitPredictionFactory{``0},VW.VowpalWabbit)">
+            <summary>
+            Predicts for this example and returns the current prediction for it.
+            </summary>
+            <typeparam name="TPrediction">The prediction type.</typeparam>
+            <param name="predictionFactory">The prediction factory to be used. See <see cref="T:VW.VowpalWabbitPredictionType"/>.</param>
+            <returns>The prediction for the this example.</returns>
+            <param name="vw">Use this VW instance for prediction instead of the one the example was created from.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitExampleCollection.LearnInternal(VW.VowpalWabbit)">
+            <summary>
+            Learns from this example.
+            </summary>
+            <param name="vw">Use this VW instance for learning instead of the one the example was created from.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitExampleCollection.PredictInternal(VW.VowpalWabbit)">
+            <summary>
+            Predicts for this example.
+            </summary>
+            <param name="vw">Use this VW instance for prediction instead of the one the example was created from.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitExampleCollection.LearnInternal``1(VW.IVowpalWabbitPredictionFactory{``0},VW.VowpalWabbit)">
+            <summary>
+            Learn from this example and returns the current prediction for it.
+            </summary>
+            <typeparam name="TPrediction">The prediction type.</typeparam>
+            <param name="predictionFactory">The prediction factory to be used. See <see cref="T:VW.VowpalWabbitPredictionType"/>.</param>
+            <returns>The prediction for the this example.</returns>
+            <param name="vw">Use this VW instance for learning instead of the one the example was created from.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitExampleCollection.PredictInternal``1(VW.IVowpalWabbitPredictionFactory{``0},VW.VowpalWabbit)">
+            <summary>
+            Predicts for this example and returns the current prediction for it.
+            </summary>
+            <typeparam name="TPrediction">The prediction type.</typeparam>
+            <param name="predictionFactory">The prediction factory to be used. See <see cref="T:VW.VowpalWabbitPredictionType"/>.</param>
+            <returns>The prediction for the this example.</returns>
+            <param name="vw">Use this VW instance for prediction instead of the one the example was created from.</param>
+        </member>
+        <member name="P:VW.VowpalWabbitExampleCollection.VowpalWabbitString">
+            <summary>
+            The optional string version of the example.
+            </summary>
+        </member>
+        <member name="P:VW.VowpalWabbitExampleCollection.NumberOfFeatures">
+            <summary>
+            The number of feature this example holds.
+            </summary>
+        </member>
+        <member name="P:VW.VowpalWabbitExampleCollection.Labels">
+            <summary>
+            All labels this example holds.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitExampleCollection.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="T:VW.VowpalWabbitMultiLineExampleCollection">
+            <summary>
+            Result for multiline examples.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitMultiLineExampleCollection.#ctor(VW.VowpalWabbit,VW.VowpalWabbitExample,VW.VowpalWabbitExample[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:VW.VowpalWabbitMultiLineExampleCollection"/> class.
+            </summary>
+        </member>
+        <member name="P:VW.VowpalWabbitMultiLineExampleCollection.SharedExample">
+            <summary>
+            Single example or the shared
+            </summary>
+        </member>
+        <member name="P:VW.VowpalWabbitMultiLineExampleCollection.Examples">
+            <summary>
+            The multi-line examples
+            </summary>
+        </member>
+        <member name="P:VW.VowpalWabbitMultiLineExampleCollection.NumberOfFeatures">
+            <summary>
+            The number of feature this example holds.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitMultiLineExampleCollection.Execute``1(VW.VowpalWabbit,System.Action{VW.VowpalWabbitExample},VW.IVowpalWabbitPredictionFactory{``0})">
+            <summary>
+            Calls learn or predict for the set of examples. Does required filtering of potential new line examples.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitMultiLineExampleCollection.LearnInternal(VW.VowpalWabbit)">
+            <summary>
+            Learns from these examples.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitMultiLineExampleCollection.LearnInternal``1(VW.IVowpalWabbitPredictionFactory{``0},VW.VowpalWabbit)">
+            <summary>
+            Learn from these examples and returns the current prediction for it.
+            </summary>
+            <typeparam name="TPrediction">The prediction type.</typeparam>
+            <param name="predictionFactory">The prediction factory to be used. See <see cref="T:VW.VowpalWabbitPredictionType"/>.</param>
+            <param name="vw">The VW instance that should be used for learning.</param>
+            <returns>The prediction for the this example.</returns>
+        </member>
+        <member name="M:VW.VowpalWabbitMultiLineExampleCollection.PredictInternal(VW.VowpalWabbit)">
+            <summary>
+            Predicts for these examples.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitMultiLineExampleCollection.PredictInternal``1(VW.IVowpalWabbitPredictionFactory{``0},VW.VowpalWabbit)">
+            <summary>
+            Predicts for these examples and returns the current prediction for it.
+            </summary>
+            <typeparam name="TPrediction">The prediction type.</typeparam>
+            <param name="predictionFactory">The prediction factory to be used. See <see cref="T:VW.VowpalWabbitPredictionType"/>.</param>
+            <param name="vw">The native VW instance.</param>
+            <returns>The prediction for the this example.</returns>
+        </member>
+        <member name="P:VW.VowpalWabbitMultiLineExampleCollection.VowpalWabbitString">
+            <summary>
+            The optional string version of the example.
+            </summary>
+        </member>
+        <member name="P:VW.VowpalWabbitMultiLineExampleCollection.Labels">
+            <summary>
+            All labels this example holds.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitMultiLineExampleCollection.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="T:VW.VowpalWabbitMultiworldTesting">
+            <summary>
+            A wrapper for --multiworld_testing mode.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitMultiworldTesting.#ctor(System.IO.Stream)">
+             <summary>
+            
+             </summary>
+             <param name="vwModel">Optional model to see multiworld testing</param>
+        </member>
+        <member name="M:VW.VowpalWabbitMultiworldTesting.Evaluate(System.UInt32,System.Int32,VW.Labels.ContextualBanditLabel)">
+            <summary>
+            Evaluates <paramref name="learnedAction"/> and <paramref name="numActions"/>x constants policies w.r.t. to <paramref name="label"/>.
+            </summary>
+            <param name="learnedAction">The learned action.</param>
+            <param name="numActions">The number constant policies to be evaluated.</param>
+            <param name="label">The label.</param>
+            <returns></returns>
+        </member>
+        <member name="P:VW.VowpalWabbitMultiworldTesting.Native">
+            <summary>
+            The assocated VW instance.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitMultiworldTesting.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="T:VW.VowpalWabbitMultiworldTesting.PoliciesPerformance">
+            <summary>
+            Contains evaluation result for constant policies and the currently learned policy.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitMultiworldTesting.PoliciesPerformance.#ctor(System.Single[])">
+            <summary>
+            Initializes a new <see cref="T:VW.VowpalWabbitMultiworldTesting.PoliciesPerformance"/> instance.
+            </summary>
+            <param name="data">The performance data. Learned policy is at position 0.</param>
+        </member>
+        <member name="P:VW.VowpalWabbitMultiworldTesting.PoliciesPerformance.LearnedPolicy">
+            <summary>
+            The performance of the learned policy.
+            </summary>
+        </member>
+        <member name="P:VW.VowpalWabbitMultiworldTesting.PoliciesPerformance.NumConstantPolicies">
+            <summary>
+            The number of constant policies evaluated.
+            </summary>
+        </member>
+        <member name="P:VW.VowpalWabbitMultiworldTesting.PoliciesPerformance.ConstantPolicies">
+            <summary>
+            The performance of each constant policy.
+            </summary>
+        </member>
+        <member name="T:VW.VowpalWabbitMultiworldTesting.LearnedVsConstantPolicy">
+            <summary>
+            Must be public for the serializer to work with it.
+            </summary>
+        </member>
+        <member name="P:VW.VowpalWabbitMultiworldTesting.LearnedVsConstantPolicy.Actions">
+            <summary>
+            The constant policies actions.
+            </summary>
+        </member>
+        <member name="T:VW.VowpalWabbitSerializationException">
+            <summary>
+            Exception thrown while serialization.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitSerializationException.#ctor(System.String,System.Exception,VW.Serializer.Intermediate.Namespace,VW.Serializer.Intermediate.Feature)">
+            <summary>
+            Constructs new exception
+            </summary>
+        </member>
+        <member name="P:VW.VowpalWabbitSerializationException.Namespace">
+            <summary>
+            The related namespace for this exception.
+            </summary>
+        </member>
+        <member name="P:VW.VowpalWabbitSerializationException.Feature">
+            <summary>
+            The related feature for this feature.
+            </summary>
+        </member>
+        <member name="T:VW.VowpalWabbitSingleLineExampleCollection">
+            <summary>
+            Result for a single example.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitSingleLineExampleCollection.#ctor(VW.VowpalWabbit,VW.VowpalWabbitExample)">
+            <summary>
+            Initializes a new instance of the <see cref="T:VW.VowpalWabbitSingleLineExampleCollection"/> class.
+            </summary>
+        </member>
+        <member name="P:VW.VowpalWabbitSingleLineExampleCollection.Example">
+            <summary>
+            Single example or the shared
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitSingleLineExampleCollection.LearnInternal(VW.VowpalWabbit)">
+            <summary>
+            Learns from this example.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitSingleLineExampleCollection.LearnInternal``1(VW.IVowpalWabbitPredictionFactory{``0},VW.VowpalWabbit)">
+            <summary>
+            Learn from this example and returns the current prediction for it.
+            </summary>
+            <typeparam name="TPrediction">The prediction type.</typeparam>
+            <param name="predictionFactory">The prediction factory to be used. See <see cref="T:VW.VowpalWabbitPredictionType"/>.</param>
+            <param name="vw">The VW native instance.</param>
+            <returns>The prediction for the this example.</returns>
+        </member>
+        <member name="M:VW.VowpalWabbitSingleLineExampleCollection.PredictInternal(VW.VowpalWabbit)">
+            <summary>
+            Predicts for this example.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitSingleLineExampleCollection.PredictInternal``1(VW.IVowpalWabbitPredictionFactory{``0},VW.VowpalWabbit)">
+            <summary>
+            Predicts for this example and returns the current prediction for it.
+            </summary>
+            <typeparam name="TPrediction">The prediction type.</typeparam>
+            <param name="predictionFactory">The prediction factory to be used. See <see cref="T:VW.VowpalWabbitPredictionType"/>.</param>
+            <param name="vw">The VW instance that should be used for prediction.</param>
+            <returns>The prediction for the this example.</returns>
+        </member>
+        <member name="P:VW.VowpalWabbitSingleLineExampleCollection.VowpalWabbitString">
+            <summary>
+            The optional string version of the example.
+            </summary>
+        </member>
+        <member name="P:VW.VowpalWabbitSingleLineExampleCollection.NumberOfFeatures">
+            <summary>
+            The number of feature this example holds.
+            </summary>
+        </member>
+        <member name="P:VW.VowpalWabbitSingleLineExampleCollection.Labels">
+            <summary>
+            All labels this example holds.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitSingleLineExampleCollection.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="T:VW.VowpalWabbitSweep`2">
+            <summary>
+            Sweeping wrapper for multiline examples. Designed to re-use allocated examples
+            across multiple Vowpal Wabbit instances. So far plain parallelization yielded
+            faster training times at least on a 20 core machine.
+            </summary>
+            <typeparam name="TExample">User example type.</typeparam>
+            <typeparam name="TActionDependentFeature">Action dependent feature type.</typeparam>
+        </member>
+        <member name="M:VW.VowpalWabbitSweep`2.#ctor(System.Collections.Generic.List{VW.VowpalWabbitSettings})">
+            <summary>
+            Initializes a new instance.
+            </summary>
+            <param name="settings">The list of settings to be used.</param>
+        </member>
+        <member name="P:VW.VowpalWabbitSweep`2.VowpalWabbits">
+            <summary>
+            The internally allocated VW instances.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitSweep`2.CreatePartitioner">
+            <summary>
+            Creates a partioner used for parallel scenarios.
+            </summary>
+            <returns>An ordered partitioner.</returns>
+        </member>
+        <member name="M:VW.VowpalWabbitSweep`2.Learn(System.Int32,System.Int32,`0,System.Collections.Generic.IReadOnlyCollection{`1},System.Int32,VW.Labels.ILabel)">
+            <summary>
+            Learn from the given example and return the current prediction for it.
+            </summary>
+            <param name="example">The shared example.</param>
+            <param name="fromInclusive">Instance number to start from.</param>
+            <param name="toExclusive">Instance number to end at.</param>
+            <param name="actionDependentFeatures">The action dependent features.</param>
+            <param name="index">The index of the example to learn within <paramref name="actionDependentFeatures"/>.</param>
+            <param name="label">The label for the example to learn.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitSweep`2.Predict(System.Int32,System.Int32,`0,System.Collections.Generic.IReadOnlyCollection{`1},System.Int32,VW.Labels.ILabel)">
+            <summary>
+            Prediction sweep.
+            </summary>
+            <param name="fromInclusive"></param>
+            <param name="toExclusive"></param>
+            <param name="example"></param>
+            <param name="actionDependentFeatures"></param>
+            <param name="index"></param>
+            <param name="label"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VW.VowpalWabbitSweep`2.SaveModels(System.String)">
+            <summary>
+            Save all models with the given prfix.
+            </summary>
+            <param name="modelPrefix"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VW.VowpalWabbitSweep`2.Reload">
+            <summary>
+            Reload all models.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitSweep`2.Execute(System.Action{VW.VowpalWabbit,VW.Serializer.VowpalWabbitSingleExampleSerializer{`0},VW.Serializer.VowpalWabbitSingleExampleSerializer{`1},System.Int32})">
+            <summary>
+            Executes the given action on each VW instance.
+            </summary>
+            <param name="action">The action to execute.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitSweep`2.Dispose">
+            <summary>
+            Dispose resources.
+            </summary>
+        </member>
+        <member name="T:VW.VowpalWabbitThreadedPrediction">
+            <summary>
+            Enables multi-threaded prediction by utilizing a pool of <see cref="T:VW.VowpalWabbit"/> instances.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitThreadedPrediction.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:VW.VowpalWabbitThreadedPrediction"/>.
+            </summary>
+            <remarks>Decision Service client library needs default constructor.</remarks>
+        </member>
+        <member name="M:VW.VowpalWabbitThreadedPrediction.#ctor(VW.VowpalWabbitModel)">
+            <summary>
+            Initializes a new instance of <see cref="T:VW.VowpalWabbitThreadedPrediction"/>.
+            </summary>
+            <param name="model">The model used by each pool instance.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitThreadedPrediction.#ctor(VW.VowpalWabbitSettings)">
+            <summary>
+            Initializes a new instance of <see cref="T:VW.VowpalWabbitThreadedPrediction"/>.
+            </summary>
+            <param name="settings">The settings used by each pool instance.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitThreadedPrediction.InternalCreate(VW.VowpalWabbit)">
+            <summary>
+            Returns the same instance as no wrapping is required.
+            </summary>
+            <param name="vw">The wrapped vw instance.</param>
+        </member>
+        <member name="T:VW.VowpalWabbitThreadedPrediction`1">
+            <summary>
+            Enables multi-threaded prediction by utilizing a pool of <see cref="T:VW.VowpalWabbit"/> instances.
+            </summary>
+            <typeparam name="TExample">The type use for providing data to VW using the serializer infrastructure.</typeparam>
+        </member>
+        <member name="M:VW.VowpalWabbitThreadedPrediction`1.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:VW.VowpalWabbitThreadedPrediction"/>.
+            </summary>
+            <remarks>Decision Service client library needs default constructor.</remarks>
+        </member>
+        <member name="M:VW.VowpalWabbitThreadedPrediction`1.#ctor(VW.VowpalWabbitModel,VW.Serializer.IVowpalWabbitSerializerCompiler{`0})">
+            <summary>
+            Initializes a new instance of <see cref="T:VW.VowpalWabbitThreadedPrediction`1"/>.
+            </summary>
+            <param name="model">The model used by each pool instance.</param>
+            <param name="compiledSerializer">Optional pre-compiled serializer.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitThreadedPrediction`1.#ctor(VW.VowpalWabbitSettings)">
+            <summary>
+            Initializes a new instance of <see cref="T:VW.VowpalWabbitThreadedPrediction"/>.
+            </summary>
+            <param name="settings">The settings used by each pool instance.</param>
+        </member>
+        <member name="P:VW.VowpalWabbitThreadedPrediction`1.CompiledSerializer">
+            <summary>
+            The Serializer used to marshal examples.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitThreadedPrediction`1.InternalCreate(VW.VowpalWabbit)">
+            <summary>
+            Creates a new instance of <see cref="T:VW.VowpalWabbit`1"/>.
+            </summary>
+            <param name="vw">The wrapped vw instance.</param>
+        </member>
+        <member name="T:VW.VowpalWabbitThreadedPrediction`2">
+            <summary>
+            Enables multi-threaded prediction by utilizing a pool of <see cref="T:VW.VowpalWabbit"/> instances.
+            </summary>
+            <typeparam name="TExample">The type use for providing data to VW using the serializer infrastructure.</typeparam>
+            <typeparam name="TActionDependentFeature">The type use for providing action dependent data to VW using the serializer infrastructure.</typeparam>
+        </member>
+        <member name="M:VW.VowpalWabbitThreadedPrediction`2.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:VW.VowpalWabbitThreadedPrediction"/>.
+            </summary>
+            <remarks>Decision Service client library needs default constructor.</remarks>
+        </member>
+        <member name="M:VW.VowpalWabbitThreadedPrediction`2.#ctor(VW.VowpalWabbitModel)">
+            <summary>
+            Initializes a new instance of <see cref="T:VW.VowpalWabbitThreadedPrediction`2"/>.
+            </summary>
+            <param name="model">The model used by each pool instance.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitThreadedPrediction`2.#ctor(VW.VowpalWabbitSettings)">
+            <summary>
+            Initializes a new instance of <see cref="T:VW.VowpalWabbitThreadedPrediction"/>.
+            </summary>
+            <param name="settings">The settings used by each pool instance.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitThreadedPrediction`2.InternalCreate(VW.VowpalWabbit)">
+            <summary>
+            Creates a new instance of <see cref="T:VW.VowpalWabbit`1"/>.
+            </summary>
+            <param name="vw">The wrapped vw instance.</param>
+        </member>
+        <member name="T:VW.VowpalWabbitMultiLine">
+            <summary>
+            Helper class to properly feed multi-line examples into vw.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitMultiLine.SerializeToString``2(VW.VowpalWabbit{``0,``1},``0,System.Collections.Generic.IReadOnlyCollection{``1},System.Nullable{System.Int32},VW.Labels.ILabel,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.Object,System.String})">
+            <summary>
+            Serializes the specifed example to VW native string format.
+            </summary>
+            <typeparam name="TExample">The user example type.</typeparam>
+            <typeparam name="TActionDependentFeature">The user action dependent feature type.</typeparam>
+            <param name="vw">The VW instance.</param>
+            <param name="example">The shared example.</param>
+            <param name="actionDependentFeatures">The action dependent features.</param>
+            <param name="index">The optional index of the label example.</param>
+            <param name="label">The optional label.</param>
+            <param name="dictionary">Used to extract features into dictionary.</param>
+            <param name="fastDictionary">Used to extract features into dictionary. This should use a faster comparison mehtod (e.g. reference equals).</param>
+            <returns>The string serialized example.</returns>
+        </member>
+        <member name="M:VW.VowpalWabbitMultiLine.SerializeToString``2(VW.VowpalWabbit,``0,System.Collections.Generic.IReadOnlyCollection{``1},System.Nullable{System.Int32},VW.Labels.ILabel,VW.Serializer.IVowpalWabbitSerializer{``0},VW.Serializer.IVowpalWabbitSerializer{``1},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.Object,System.String})">
+            <summary>
+            Serializes the specifed example to VW native string format.
+            </summary>
+            <typeparam name="TExample">The user example type.</typeparam>
+            <typeparam name="TActionDependentFeature">The user action dependent feature type.</typeparam>
+            <param name="vw">The VW instance.</param>
+            <param name="example">The shared example.</param>
+            <param name="actionDependentFeatures">The action dependent features.</param>
+            <param name="index">The optional index of the label example.</param>
+            <param name="label">The optional label.</param>
+            <param name="serializer">The example serializer.</param>
+            <param name="actionDependentFeatureSerializer">The action dependent feature serializer.</param>
+            <param name="dictionary">Dictionary used for dictify operation.</param>
+            <param name="fastDictionary">Dictionary used for dictify operation.</param>
+            <returns>The string serialized example.</returns>
+        </member>
+        <member name="T:VW.VowpalWabbitMultiLine.LearnOrPredictAction`1">
+            <summary>
+            A named delegate for the action to be taken once all the examples are marshalled.
+            </summary>
+            <typeparam name="TActionDependentFeature">The action dependent feature user type.</typeparam>
+            <param name="validExamples">Marshalled valid examples.</param>
+            <param name="validActionDependentFeatures">List of valid marshalled examples.</param>
+            <param name="emptyActionDependentFeatures">List of empty non-marshalled examples.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitMultiLine.Execute``2(VW.VowpalWabbit,VW.Serializer.VowpalWabbitSingleExampleSerializer{``0},VW.Serializer.VowpalWabbitSingleExampleSerializer{``1},``0,System.Collections.Generic.IReadOnlyCollection{``1},VW.VowpalWabbitMultiLine.LearnOrPredictAction{``1},System.Nullable{System.Int32},VW.Labels.ILabel)">
+            <summary>
+            Simplify learning of examples with action dependent features.
+            </summary>
+            <typeparam name="TExample">User example type.</typeparam>
+            <typeparam name="TActionDependentFeature">Action dependent feature type.</typeparam>
+            <param name="vw">The VowpalWabbit instances.</param>
+            <param name="serializer">The example serializer.</param>
+            <param name="actionDependentFeatureSerializer">The action dependent feature serializer.</param>
+            <param name="example">The example.</param>
+            <param name="actionDependentFeatures">The action dependent features.</param>
+            <param name="predictOrLearn">An action executed once the set of valid examples is determined. </param>
+            <param name="index">The optional index of the action dependent feature this label belongs too.</param>
+            <param name="label">The optional label to be used for learning or evaluation.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitMultiLine.Learn``2(VW.VowpalWabbit,VW.Serializer.VowpalWabbitSingleExampleSerializer{``0},VW.Serializer.VowpalWabbitSingleExampleSerializer{``1},``0,System.Collections.Generic.IReadOnlyCollection{``1},System.Int32,VW.Labels.ILabel)">
+            <summary>
+            Simplify learning of examples with action dependent features.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitMultiLine.LearnAndPredict``2(VW.VowpalWabbit,VW.Serializer.VowpalWabbitSingleExampleSerializer{``0},VW.Serializer.VowpalWabbitSingleExampleSerializer{``1},``0,System.Collections.Generic.IReadOnlyCollection{``1},System.Int32,VW.Labels.ILabel)">
+            <summary>
+            Simplify learning of examples with action dependent features.
+            </summary>
+            <typeparam name="TExample">The type of the user example.</typeparam>
+            <typeparam name="TActionDependentFeature">The type of the user action dependent features.</typeparam>
+            <param name="vw">The vw instance.</param>
+            <param name="serializer">The serializer for <typeparamref name="TExample"/>.</param>
+            <param name="actionDependentFeatureSerializer">The serializer for <typeparamref name="TActionDependentFeature"/>.</param>
+            <param name="example">The user example.</param>
+            <param name="actionDependentFeatures">The action dependent features.</param>
+            <param name="index">The index of action dependent feature to label.</param>
+            <param name="label">The label for the selected action dependent feature.</param>
+            <returns>An ranked subset of predicted actions.</returns>
+        </member>
+        <member name="M:VW.VowpalWabbitMultiLine.Predict``2(VW.VowpalWabbit,VW.Serializer.VowpalWabbitSingleExampleSerializer{``0},VW.Serializer.VowpalWabbitSingleExampleSerializer{``1},``0,System.Collections.Generic.IReadOnlyCollection{``1},System.Nullable{System.Int32},VW.Labels.ILabel)">
+            <summary>
+            Simplify prediction of examples with action dependent features.
+            </summary>
+            <typeparam name="TExample">The type of the user example.</typeparam>
+            <typeparam name="TActionDependentFeature">The type of the user action dependent features.</typeparam>
+            <param name="vw">The vw instance.</param>
+            <param name="serializer">The serializer for <typeparamref name="TExample"/>.</param>
+            <param name="actionDependentFeatureSerializer">The serializer for <typeparamref name="TActionDependentFeature"/>.</param>
+            <param name="example">The user example.</param>
+            <param name="actionDependentFeatures">The action dependent features.</param>
+            <param name="index">The index of action dependent feature to label.</param>
+            <param name="label">The label for the selected action dependent feature.</param>
+            <returns>An ranked subset of predicted actions.</returns>
+        </member>
+        <member name="M:VW.VowpalWabbitMultiLine.GetPrediction``1(VW.VowpalWabbit,System.Collections.Generic.IReadOnlyList{VW.VowpalWabbitExample},System.Collections.Generic.IReadOnlyList{VW.ActionDependentFeature{``0}},System.Collections.Generic.IReadOnlyList{VW.ActionDependentFeature{``0}})">
+            <summary>
+            Extracts the prediction, orders the action depdendent feature objects accordingly and appends the
+            action dependent feature objcts that did produce empty examples at the end.
+            </summary>
+            <typeparam name="TActionDependentFeature">The action dependent feature type.</typeparam>
+            <param name="vw">The Vowpal Wabbit instance.></param>
+            <param name="examples">The list of examples.</param>
+            <param name="validActionDependentFeatures">The list of non-empty action dependent feature objects.</param>
+            <param name="emptyActionDependentFeatures">The list of empty action dependent feature objects.</param>
+            <returns>Returns the ranked list of action dependent features.</returns>
+        </member>
+        <member name="T:VW.VowpalWabbitThreadedPredictionBase`1">
+            <summary>
+            Enables multi-threaded prediction by utilizing a pool of <see cref="T:VW.VowpalWabbit"/> instances.
+            </summary>
+            <typeparam name="TVowpalWabbit">The VowpalWabbit wrapper type used.</typeparam>
+        </member>
+        <member name="F:VW.VowpalWabbitThreadedPredictionBase`1.vwPool">
+            <summary>
+            The pool of potentially wrapped VW instances.
+            </summary>
+        </member>
+        <member name="M:VW.VowpalWabbitThreadedPredictionBase`1.#ctor(VW.VowpalWabbitModel)">
+            <summary>
+            Initializes a new instance of the <see cref="T:VW.VowpalWabbitThreadedPredictionBase`1"/> class.
+            </summary>
+            <param name="model">The initial model to use.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitThreadedPredictionBase`1.#ctor(VW.VowpalWabbitSettings)">
+            <summary>
+            Initializes a new instance of the <see cref="T:VW.VowpalWabbitThreadedPredictionBase`1"/> class.
+            </summary>
+            <param name="settings">The initial settings to use.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitThreadedPredictionBase`1.InternalCreate(VW.VowpalWabbit)">
+            <summary>
+            Implementors create new VW wrapper instances.
+            </summary>
+            <param name="vw">The native VW instance.</param>
+            <returns>The new VW wrapper instance.</returns>
+        </member>
+        <member name="M:VW.VowpalWabbitThreadedPredictionBase`1.UpdateModel(VW.VowpalWabbitModel)">
+            <summary>
+            Updates the model used for prediction in a thread-safe manner.
+            </summary>
+            <param name="model">The new model to be used.</param>
+        </member>
+        <member name="M:VW.VowpalWabbitThreadedPredictionBase`1.GetOrCreate">
+            <summary>
+            Gets or creates a new VW wrapper instance.
+            </summary>
+            <returns>A ready to use VW wrapper instance.</returns>
+            <remarks><see cref="P:VW.PooledObject`2.Value"/> can be null if no model was supplied yet.</remarks>
+        </member>
+        <member name="M:VW.VowpalWabbitThreadedPredictionBase`1.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+    </members>
+</doc>

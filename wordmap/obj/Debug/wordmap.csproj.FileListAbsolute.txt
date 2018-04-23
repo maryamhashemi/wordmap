@@ -9,3 +9,12 @@ c:\users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\obj\Debug\
 c:\users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\obj\Debug\wordmap.pdb
 C:\Users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\bin\Debug\NHazm.pdb
 C:\Users\maryam\Documents\Visual Studio 2015\Projects\wordmap\wordmap\bin\Debug\WordCloud.dll
+C:\Users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\bin\Debug\VowpalWabbit.Common.dll
+C:\Users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\bin\Debug\VowpalWabbit.Core.dll
+C:\Users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\bin\Debug\VowpalWabbit.dll
+C:\Users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\bin\Debug\VowpalWabbit.pdb
+C:\Users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\bin\Debug\VowpalWabbit.xml
+C:\Users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\bin\Debug\VowpalWabbit.Common.pdb
+C:\Users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\bin\Debug\VowpalWabbit.Common.xml
+C:\Users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\bin\Debug\VowpalWabbit.Core.pdb
+C:\Users\maryam\documents\visual studio 2015\Projects\wordmap\wordmap\bin\Debug\VowpalWabbit.Core.xml

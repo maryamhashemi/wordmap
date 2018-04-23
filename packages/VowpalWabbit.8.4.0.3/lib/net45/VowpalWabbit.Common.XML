@@ -1,0 +1,415 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VowpalWabbit.Common</name>
+    </assembly>
+    <members>
+        <member name="T:VW.IBag`1">
+            <summary>
+            Interface to model simple bag.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:VW.IBag`1.TryAdd(`0)">
+            <summary>
+            Try add <paramref name="item"/> to this bag.
+            </summary>
+            <param name="item">The item to add.</param>
+            <returns>True if succesful, false otherwise.</returns>
+        </member>
+        <member name="M:VW.IBag`1.Remove">
+            <summary>
+            Remove and return one item from this bag.
+            </summary>
+            <returns>The item removed from the bag or default(T) if there is no item available.</returns>
+        </member>
+        <member name="M:VW.IBag`1.RemoveAll">
+            <summary>
+            Remove and return all items from this bag.
+            </summary>
+            <returns>The items removed from the gag.</returns>
+        </member>
+        <member name="P:VW.IBag`1.Count">
+            <summary>
+            The number of items this bag contains.
+            </summary>
+        </member>
+        <member name="T:VW.Bag">
+            <summary>
+            Factory class for various bag implementations.
+            </summary>
+        </member>
+        <member name="M:VW.Bag.Create``1(System.Int32)">
+            <summary>
+            Creates a simple bound or unbound, not thread-safe bag object.
+            </summary>
+            <typeparam name="T">The type of the items.</typeparam>
+            <param name="max">The maximum number of items this bag should hold.</param>
+            <returns>A new bag instance.</returns>
+        </member>
+        <member name="M:VW.Bag.CreateLockFree``1(System.Int32)">
+            <summary>
+            Creates an unbound thread-safe, lock free bag.
+            </summary>
+            <typeparam name="T">The type of the items.</typeparam>
+            <returns>A new bag instance.</returns>
+        </member>
+        <member name="T:VW.Bag.LockFreeBagImpl`1">
+            <summary>
+            This is a good read on performance: http://msdn.microsoft.com/en-us/concurrency/ee851578.aspx
+            For streaming training we are seeking good performance for a single producer and multiple consumers.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:VW.Reflection.TypeDistance">
+            <summary>
+            Models a distance to a given type.
+            </summary>
+        </member>
+        <member name="T:VW.Reflection.TypeMatch">
+            <summary>
+            Models a distance and additional matching constraints for a type.
+            </summary>
+        </member>
+        <member name="T:VW.Reflection.InspectionHelper">
+            <summary>
+            Utilitiy class supporting feature type inspection.
+            </summary>
+        </member>
+        <member name="M:VW.Reflection.InspectionHelper.IsNumericType(System.Type)">
+            <summary>
+            Determines if the <paramref name="elemType"/> is a supported numeric type.
+            </summary>
+            <param name="elemType">The type to be inspected.</param>
+            <returns>True if numeric, false otherwise.</returns>
+        </member>
+        <member name="M:VW.Reflection.InspectionHelper.GetEnumerableElementType(System.Type)">
+            <summary>
+            If <paramref name="type"/> is an enumerable type (such as array or <see cref="T:System.Collections.Generic.IEnumerable`1"/>), this method will 
+            return the element type.
+            </summary>
+            <param name="type">The type to be inspected.</param>
+            <returns>If <paramref name="type"/> is an enumerable type the element type is returned, otherwise null.</returns>
+        </member>
+        <member name="T:VW.Reflection.ReflectionHelper">
+            <summary>
+            Reflection helper to find methods on visitors.
+            </summary>
+        </member>
+        <member name="M:VW.Reflection.ReflectionHelper.CompileToFunc``1(System.Linq.Expressions.Expression{``0})">
+            <summary>
+            Compiles the supplied <paramref name="sourceExpression"/> to a callable function.
+            </summary>
+            <param name="sourceExpression">The source expression to be compiled.</param>
+            <returns>A callable function.</returns>
+            <remarks>Can't constraint on Func (or would have to have 11 overloads) nor is it possible to constaint on delegate.</remarks>
+        </member>
+        <member name="M:VW.Reflection.ReflectionHelper.FindMethod(System.Type,System.String,System.Type[])">
+            <summary>
+            TODO: replace me with Roslyn once it's released and just generate string code. This way the overload resolution is properly done.
+            </summary>
+            <remarks>This is a simple heuristic for overload resolution, not the full thing.</remarks>
+        </member>
+        <member name="M:VW.Reflection.ReflectionHelper.GetInfo``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            Gets the member info in a sort of type safe manner - it's better than using strings, but some runtime errors are still possbile.
+            </summary>
+        </member>
+        <member name="M:VW.Reflection.ReflectionHelper.GetInfo``1(System.Linq.Expressions.Expression{System.Action{``0}})">
+            <summary>
+            Gets the member info in a sort of type safe manner - it's better than using strings, but some runtime errors are still possbile.
+            </summary>
+        </member>
+        <member name="M:VW.Reflection.ReflectionHelper.GetInfo(System.Linq.Expressions.Expression)">
+            <summary>
+            Gets the member info in a sort of type safe manner - it's better than using strings, but some runtime errors are still possbile.
+            </summary>
+        </member>
+        <member name="T:VW.Serializer.NewFeatureExpressionDelegate">
+            <summary>
+            Delegate defintion for feature object creation expressions.
+            </summary>
+            <param name="vw">An expression resolving to a VowpalWabbit instance.</param>
+            <param name="namespace">An expression resolving to a Namespace instance.</param>
+            <returns>An expression constructing a new Feature object.</returns>
+        </member>
+        <member name="T:VW.Serializer.FeatureExpression">
+            <summary>
+            Feature data composed during compilation step.
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.FeatureExpression.#ctor(System.Type,System.String,System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression},System.Collections.Generic.List{System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression}},VW.Serializer.NewFeatureExpressionDelegate,System.String,System.Nullable{System.Char},System.Boolean,System.String,System.Nullable{System.Int32},System.Boolean,VW.Serializer.StringProcessing,System.Reflection.MethodInfo,System.Nullable{System.Boolean},VW.Serializer.FeatureExpression)">
+            <summary>
+            Initializes a new instance of the <see cref="T:VW.Serializer.FeatureExpression"/> class.
+            </summary>
+            <param name="featureType">The type of the feature.</param>
+            <param name="name">The name of the feature.</param>
+            <param name="valueExpressionFactory">Factory to extract the value for a given feature from the example object (input argument).</param>
+            <param name="valueValidExpressionFactories">Factories to provide validation before invoking the expression created through <see cref="P:VW.Serializer.FeatureExpression.ValueExpressionFactory"/>.</param>
+            <param name="featureExpressionFactory">The expression must create new Feature instances.</param>
+            <param name="namespace">The namespace this feature belongs to.</param>
+            <param name="featureGroup">The feature group this feature belongs to.</param>
+            <param name="enumerize">If true the marshaller enumerates the feature (as in creates a 1-hot encoding).</param>
+            <param name="variableName">The variable name to be used in the generated code.</param>
+            <param name="order">Used to order feature serialization.</param>
+            <param name="addAnchor">True if an anchor element should be added at the beginning of a dense feature array.</param>
+            <param name="stringProcessing">Configures string pre-processing for this feature.</param>
+            <param name="overrideSerializeMethod">An optional method overriding the otherwise auto-resolved serialization method.</param>
+            <param name="dictify">True if a dictionary should be build for this feature.</param>
+            <param name="parent">The parent feature expression.</param>
+        </member>
+        <member name="P:VW.Serializer.FeatureExpression.Parent">
+            <summary>
+            The parent feature expression.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.FeatureExpression.IsNullable">
+            <summary>
+            True if the type is nullable.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.FeatureExpression.VariableName">
+            <summary>
+            Serializer variable name.
+            </summary>
+            <remarks>Useful to debug</remarks>
+        </member>
+        <member name="P:VW.Serializer.FeatureExpression.FeatureType">
+            <summary>
+            The type of the feature.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.FeatureExpression.Name">
+            <summary>
+            The name of the feature.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.FeatureExpression.Namespace">
+            <summary>
+            The namespace.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.FeatureExpression.FeatureGroup">
+            <summary>
+            The feature group.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.FeatureExpression.OverrideSerializeMethod">
+            <summary>
+            An optional method overriding the otherwise auto-resolved serialization method.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.FeatureExpression.Enumerize">
+            <summary>
+            True if this feature should be enumerized.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.FeatureExpression.AddAnchor">
+            <summary>
+            True if an anchor element should be added at the beginning of a dense feature array.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.FeatureExpression.Dictify">
+            <summary>
+            True if a dictionary should be build for this feature.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.FeatureExpression.ValueExpressionFactory">
+            <summary>
+            Factory to extract the value for a given feature from the example object (input argument).
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.FeatureExpression.ValueValidExpressionFactories">
+            <summary>
+            Factories to provide validation before invoking the expression created through <see cref="P:VW.Serializer.FeatureExpression.ValueExpressionFactory"/>.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.FeatureExpression.FeatureExpressionFactory">
+            <summary>
+            The expression must create new Feature instances.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.FeatureExpression.DenseFeatureValueElementType">
+            <summary>
+            The element type of an enumerable feature type.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.FeatureExpression.Order">
+            <summary>
+            Used to order feature serialization.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.FeatureExpression.StringProcessing">
+            <summary>
+            Configures string pre-processing for this feature.
+            </summary>
+        </member>
+        <member name="T:VW.Serializer.LabelExpression">
+            <summary>
+            Defines access to the label for an user-specified example type.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.LabelExpression.Name">
+            <summary>
+            The name of the label.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.LabelExpression.LabelType">
+            <summary>
+            The type of the feature.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.LabelExpression.ValueExpressionFactory">
+            <summary>
+            Factory to extract the value for a given feature from the example object (input argument).
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.LabelExpression.ValueValidExpressionFactories">
+            <summary>
+            Factories to provide validation before invoking the expression created through <see cref="P:VW.Serializer.LabelExpression.ValueExpressionFactory"/>.
+            </summary>
+        </member>
+        <member name="T:VW.Serializer.StringProcessing">
+            <summary>
+            Options for string pre-processing before feeding to VW native.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.StringProcessing.Escape">
+            <summary>
+            Spaces are replaced with underscores.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.StringProcessing.Split">
+            <summary>
+            Strings are split on space, producing individual features.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.StringProcessing.EscapeAndIncludeName">
+            <summary>
+            Spaces are replaced with underscores and the property name is used as a prefix.
+            </summary>
+        </member>
+        <member name="T:VW.Serializer.Schema">
+            <summary>
+            Describes the serializatoin for a give type.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.Schema.Features">
+            <summary>
+            List of features to extract from type.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.Schema.Label">
+            <summary>
+            Expression to access the label.
+            </summary>
+        </member>
+        <member name="T:VW.Serializer.PropertyConfiguration">
+            <summary>
+            Constants used throughout C# wrapper.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.PropertyConfiguration.FeatureIgnorePrefixDefault">
+            <summary>
+            Default value for feature ignore prefix: '_'.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.PropertyConfiguration.TextPropertyDefault">
+            <summary>
+            Default value for text property: '_text'.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.PropertyConfiguration.LabelPropertyDefault">
+            <summary>
+            Default value for label property: '_label'.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.PropertyConfiguration.LabelIndexPropertyDefault">
+            <summary>
+            Default value for label index property: '_labelindex'.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.PropertyConfiguration.LabelPropertyPrefixDefault">
+            <summary>
+            Default value for label property prefix: '_label_';
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.PropertyConfiguration.MultiPropertyDefault">
+            <summary>
+            Default value for multi property: '_multi'.
+            </summary>
+        </member>
+        <member name="F:VW.Serializer.PropertyConfiguration.Default">
+            <summary>
+            Default singleton holding the default configuration.
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.PropertyConfiguration.#ctor">
+            <summary>
+            Initializes a new <see cref="T:VW.Serializer.PropertyConfiguration"/> instance.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.PropertyConfiguration.FeatureIgnorePrefix">
+            <summary>
+            JSON properties starting with underscore are ignored.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.PropertyConfiguration.TextProperty">
+            <summary>
+            JSON property "_text" is marshalled using <see cref="F:VW.Serializer.StringProcessing.Split"/>.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.PropertyConfiguration.LabelProperty">
+            <summary>
+            JSON property "_label" is used as label.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.PropertyConfiguration.LabelIndexProperty">
+            <summary>
+            JSON property "_labelIndex" determines the index this label is applied for multi-line examples.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.PropertyConfiguration.LabelPropertyPrefix">
+            <summary>
+            JSON properties starting with "_label_$name" are used to specify nested properties. Has the same effect as _label: { "$name": ... }.
+            </summary>
+        </member>
+        <member name="P:VW.Serializer.PropertyConfiguration.MultiProperty">
+            <summary>
+            JSON property "_multi" is used to signal multi-line examples.
+            </summary>
+        </member>
+        <member name="M:VW.Serializer.PropertyConfiguration.IsSpecialProperty(System.String)">
+            <summary>
+            True if <paramref name="property"/> is considered a special property and thus should not be skipped.
+            </summary>
+            <param name="property">The JSON property name.</param>
+            <returns>True if <paramref name="property"/> is a special property, false otherwise.</returns>
+        </member>
+        <member name="T:VW.VowpalWabbitDecisionServiceInteractionHeader">
+            <summary>
+            Decision Service interaction header information.
+            </summary>
+        </member>
+        <member name="P:VW.VowpalWabbitDecisionServiceInteractionHeader.EventId">
+            <summary>
+            EventId extracted from Decision Service Interaction JSON data.
+            </summary>
+        </member>
+        <member name="P:VW.VowpalWabbitDecisionServiceInteractionHeader.Actions">
+            <summary>
+            Actions extracted from Decision Service Interaction JSON data.
+            </summary>
+        </member>
+        <member name="P:VW.VowpalWabbitDecisionServiceInteractionHeader.Probabilities">
+            <summary>
+            Probabilities extracted from Decision Service Interaction JSON data.
+            </summary>
+        </member>
+        <member name="P:VW.VowpalWabbitDecisionServiceInteractionHeader.ProbabilityOfDrop">
+            <summary>
+            Probability of drop extracted from Decision Service Interaction JSON data.
+            </summary>
+        </member>
+    </members>
+</doc>

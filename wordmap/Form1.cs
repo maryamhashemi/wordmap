@@ -31,15 +31,12 @@ namespace wordmap
             wordmap wm = new wordmap();
             List<string> prepVerbList = wm.GetprepVerbList();
             label2.Text = "loading preposition and verb files ...";
-            label2.Refresh();
 
             sportsText = wm.normalize(sportsText);
             label2.Text = "normalizing text ...";
-            label2.Refresh();
 
             Dictionary<string, int> sentences = wm.GetSentences(sportsText);
             label2.Text = "tokenizing sentences ...";
-            label2.Refresh();
 
             dataGridView1.Rows.Clear();
             dataGridView1.Columns.Clear();
@@ -51,19 +48,15 @@ namespace wordmap
                 dataGridView1.Rows.Add(item.Value, item.Key);
             }
             label2.Text = "displaying  sentences in datagridview ...";
-            label2.Refresh();
 
             string[] words = wm.tokenize(sportsText);
             label2.Text = "tokenizing text ...";
-            label2.Refresh();
 
             Dictionary<string, int> wordCount = wm.CalcWordCount(words);
             label2.Text = "lemmatizing and counting words frequencies ...";
-            label2.Refresh();
 
             wordCount = wm.deletePrepVerb(prepVerbList, wordCount);
             label2.Text = "deleting preposition and verb from words ...";
-            label2.Refresh();
 
             var items = from pair in wordCount
                         orderby pair.Value descending
@@ -79,14 +72,10 @@ namespace wordmap
                 dataGridView2.Rows.Add(kvp.Key, kvp.Value);
             }
             label2.Text = "displaying  wordCount in datagridview ...";
-            label2.Refresh();
 
             pictureBox1.Image = wm.getImageWordmap(wordCount,pictureBox1.Width,pictureBox1.Height);
             label2.Text = "displaying wordmap ...";
-            label2.Refresh();
-
-            label2.Text = "";
-            label2.Refresh();
+            label2.Text = "done";
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -99,15 +88,12 @@ namespace wordmap
             wordmap wm = new wordmap();
             List<string> prepVerbList = wm.GetprepVerbList();
             label2.Text = "loading preposition and verb files ...";
-            label2.Refresh();
 
             politicsText = wm.normalize(politicsText);
             label2.Text = "normalizing text ...";
-            label2.Refresh();
 
             Dictionary<string, int> sentences = wm.GetSentences(politicsText);
             label2.Text = "tokenizing sentences ...";
-            label2.Refresh();
 
             dataGridView1.Rows.Clear();
             dataGridView1.Columns.Clear();
@@ -119,19 +105,15 @@ namespace wordmap
                 dataGridView1.Rows.Add(item.Value, item.Key);
             }
             label2.Text = "displaying  sentences in datagridview ...";
-            label2.Refresh();
 
             string[] words = wm.tokenize(politicsText);
             label2.Text = "tokenizing text ...";
-            label2.Refresh();
 
             Dictionary<string, int> wordCount = wm.CalcWordCount(words);
             label2.Text = "lemmatizing and counting words frequencies ...";
-            label2.Refresh();
 
             wordCount = wm.deletePrepVerb(prepVerbList, wordCount);
             label2.Text = "deleting preposition and verb from words ...";
-            label2.Refresh();
 
             var items = from pair in wordCount
                         orderby pair.Value descending
@@ -147,14 +129,10 @@ namespace wordmap
                 dataGridView2.Rows.Add(kvp.Key, kvp.Value);
             }
             label2.Text = "displaying  wordCount in datagridview ...";
-            label2.Refresh();
 
             pictureBox1.Image = wm.getImageWordmap(wordCount, pictureBox1.Width, pictureBox1.Height);
             label2.Text = "displaying wordmap ...";
-            label2.Refresh();
-
-            label2.Text = "";
-            label2.Refresh();
+            label2.Text = "done";
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -166,42 +144,33 @@ namespace wordmap
             wordmap wm = new wordmap();
             List<string> prepVerbList = wm.GetprepVerbList();
             label2.Text = "loading preposition and verb files ...";
-            label2.Refresh();
 
             sportsText = wm.normalize(sportsText);
             label2.Text = "normalizing text ...";
-            label2.Refresh();
 
             string[] words = wm.tokenize(sportsText);
             label2.Text = "tokenizing text ...";
-            label2.Refresh();
 
             Dictionary<string, int> SportswordCount = wm.CalcWordCount(words);
             label2.Text = "lemmatizing and counting words frequencies ...";
-            label2.Refresh();
 
             SportswordCount = wm.deletePrepVerb(prepVerbList, SportswordCount);
             label2.Text = "deleting preposition and verb from words ...";
-            label2.Refresh();
 
             filePath = Path.Combine(Directory.GetCurrentDirectory(), "politicsNews .txt");
             string politicsText = File.ReadAllText(filePath);
 
             politicsText = wm.normalize(politicsText);
             label2.Text = "normalizing text ...";
-            label2.Refresh();
 
             words = wm.tokenize(politicsText);
             label2.Text = "tokenizing text ...";
-            label2.Refresh();
 
             Dictionary<string, int> PoliticswordCount = wm.CalcWordCount(words);
             label2.Text = "lemmatizing and counting words frequencies ...";
-            label2.Refresh();
 
             PoliticswordCount = wm.deletePrepVerb(prepVerbList, PoliticswordCount);
             label2.Text = "deleting preposition and verb from words ...";
-            label2.Refresh();
 
             decimal totalsportsWordCount = (decimal)SportswordCount.Sum(x => x.Value);
             decimal totalpoliticsWordCount = (decimal)PoliticswordCount.Sum(x => x.Value);
@@ -261,11 +230,8 @@ namespace wordmap
 
             // display wordmap image of sports news
             Image newImage = wc.Draw(wordslist, frequencylist);
-
             pictureBox1.Image = newImage;
-
-            label2.Text = "";
-            label2.Refresh();
+            label2.Text = "done";
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -278,6 +244,21 @@ namespace wordmap
             Cursor.Current = Cursors.WaitCursor;
             NaiveBayes NB = new NaiveBayes();
             NB.classifier();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            label2.Text = "converting txt file to vowpal webbit format ...";
+
+            vowpalWabbit VW = new vowpalWabbit();
+            VW.convertToVW();
+            
+            label2.Text = "done";
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            label2.Refresh();
         }
     }
 }
