@@ -243,16 +243,36 @@ namespace wordmap
         {
             Cursor.Current = Cursors.WaitCursor;
             NaiveBayes NB = new NaiveBayes();
-            NB.classifier();
+             NB.classifier();
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            label2.Text = "converting txt file to vowpal webbit format ...";
+            label2.Text = "converting txt file to vowpal wabbit format ...";
 
             vowpalWabbit VW = new vowpalWabbit();
-            VW.convertToVW();
-            
+
+            string c1path = @"C:\Users\maryam\Documents\Visual Studio 2015\Projects\wordmap\data\train\sportsTrain.txt";
+            string c2path = @"C:\Users\maryam\Documents\Visual Studio 2015\Projects\wordmap\data\train\politicsTrain.txt";
+            string vwfilepath = @"C:\Users\maryam\Documents\Visual Studio 2015\Projects\wordmap\trainVW.txt";
+            VW.convertToVW(c1path,c2path,vwfilepath);
+
+            c1path = @"C:\Users\maryam\Documents\Visual Studio 2015\Projects\wordmap\data\test\sportsTest.txt";
+            c2path = @"C:\Users\maryam\Documents\Visual Studio 2015\Projects\wordmap\data\test\politicsTest.txt";
+            vwfilepath = @"C:\Users\maryam\Documents\Visual Studio 2015\Projects\wordmap\testVW.txt";
+            VW.convertToVW(c1path, c2path, vwfilepath);
+
+            double[] test_labels = VW.getTestLabels(vwfilepath);
+
+            string predictionPath = @"C:\Users\maryam\Documents\Visual Studio 2015\Projects\wordmap\predictions_1gram.txt";
+            double[] prediction_labels = VW.getPredictionLabels(predictionPath);
+
+            double precision = VW.calcPrecision(test_labels, prediction_labels,4);
+            double recall = VW.calcRecall(test_labels, prediction_labels,4);
+
+            Console.WriteLine($"Precision = {precision}");
+            Console.WriteLine($"Recall = {recall}");
+
             label2.Text = "done";
         }
 

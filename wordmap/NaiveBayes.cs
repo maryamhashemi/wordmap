@@ -27,45 +27,116 @@ namespace wordmap
             double politicsLogProb = Math.Log(0.5);
          
             string testFiles = @"C:\Users\maryam\Documents\Visual Studio 2015\Projects\wordmap\data\test\*.txt";
-          
-            foreach(var testFile in Directory.GetFiles(Path.GetDirectoryName(testFiles),Path.GetFileName(testFiles)))
+
+            int[] test_labels =  new int[5000];
+            int[] prediction_label = new int[5000];
+
+            int index = 0;
+            
+
+            foreach (var testFile in Directory.GetFiles(Path.GetDirectoryName(testFiles), Path.GetFileName(testFiles)))
             {
-                Dictionary<string, double> feature = new Dictionary<string, double>();
+                int nbclass;
+                if (Path.GetFileName(testFile) == "politicsTest.txt")
+                    nbclass = 2;
+                else
+                    nbclass = 1;
 
-                double sportsLogProbSum = sportsLogProb;
-                double politicsLogProbSum = politicsLogProb;
-
-                foreach (string word in tokenize(File.ReadAllText(testFile)))
+                foreach (var line in File.ReadAllLines(testFile))
                 {
-                    double wordSportsLogProb;
-                    double wordPoliticsLogProb;
-                    if (sportsWordLogProbs.TryGetValue(word, out wordSportsLogProb))
+                    Dictionary<string, double> feature = new Dictionary<string, double>();
+
+                    double sportsLogProbSum = sportsLogProb;
+                    double politicsLogProbSum = politicsLogProb;
+
+                    foreach (string word in tokenize(line))
                     {
-                        sportsLogProbSum += wordSportsLogProb;
-                    }
-                    else
-                    {
-                        wordSportsLogProb = sportsWordLogProbs["unknown"];
-                        sportsLogProbSum += wordSportsLogProb;
+                        double wordSportsLogProb;
+                        double wordPoliticsLogProb;
+                        if (sportsWordLogProbs.TryGetValue(word, out wordSportsLogProb))
+                        {
+                            sportsLogProbSum += wordSportsLogProb;
+                        }
+                        else
+                        {
+                            wordSportsLogProb = sportsWordLogProbs["unknown"];
+                            sportsLogProbSum += wordSportsLogProb;
+                        }
+
+                        if (politicsWordLogProbs.TryGetValue(word, out wordPoliticsLogProb))
+                        {
+                            politicsLogProbSum += wordPoliticsLogProb;
+                        }
+                        else
+                        {
+                            wordPoliticsLogProb = politicsWordLogProbs["unknown"];
+                            politicsLogProbSum += wordPoliticsLogProb;
+                        }
+                        feature[word] = Math.Abs(wordSportsLogProb - wordPoliticsLogProb);
                     }
 
-                    if (politicsWordLogProbs.TryGetValue(word, out wordPoliticsLogProb))
-                    {
-                        politicsLogProbSum += wordPoliticsLogProb;
-                    }
-                    else
-                    {
-                        wordPoliticsLogProb = politicsWordLogProbs["unknown"];
-                        politicsLogProbSum += wordPoliticsLogProb;
-                    }
-                    feature[word] = Math.Abs(wordSportsLogProb - wordPoliticsLogProb);
+                    System.Diagnostics.Debug.WriteLine($"{line} is class {(sportsLogProbSum > politicsLogProbSum ? 1 : 2)}");
+                    System.Diagnostics.Debug.WriteLine($"\t Class1:{sportsLogProbSum} Class2:{politicsLogProbSum}");
+                    var topFeature = feature.OrderByDescending(x => x.Value).Take(5).Select(x => x.Key);
+                    System.Diagnostics.Debug.WriteLine($"\t TopFeature: {string.Join(" ", topFeature)}");
+
+
+                    test_labels[index] = nbclass;
+                    prediction_label[index] = (sportsLogProbSum > politicsLogProbSum ? 1 : 2);
+                    index++;
                 }
+                nbclass++;
+            }
+            System.Diagnostics.Debug.WriteLine($"precision = {calcPrecision(test_labels, prediction_label)}");
+            System.Diagnostics.Debug.WriteLine($"recall = {calcRecall(test_labels, prediction_label)}");
+            System.Diagnostics.Debug.WriteLine($"number of statements = {index}");
 
-                System.Diagnostics.Debug.WriteLine($"{Path.GetFileName(testFile)} is class {(sportsLogProbSum > politicsLogProbSum ? 1 : 2)}");
-                System.Diagnostics.Debug.WriteLine($"\t Class1:{sportsLogProbSum} Class2:{politicsLogProbSum}");
-                var topFeature = feature.OrderByDescending(x => x.Value).Take(5).Select(x => x.Key);
-                System.Diagnostics.Debug.WriteLine($"\t TopFeature: {string.Join(" ", topFeature)}");
-            }    
+        }
+        public double calcPrecision(int[] test_labels, int[] prediction_label)
+        {
+            double precision;
+
+            double tp = 0;
+            double tn = 0;
+            double fp = 0;
+            double fn = 0;
+
+            for(int i=0; i<test_labels.Length ; i++)
+            {
+                if (test_labels[i] == 1 && prediction_label[i] == 1)
+                    tp = tp + 1;
+                else if(test_labels[i] == 1 && prediction_label[i] != 1)
+                    fn = fn + 1;
+                else if(test_labels[i] != 1 && prediction_label[i] == 1)
+                    fp = fp + 1;
+                else if(test_labels[i] != 1 && prediction_label[i] != 1)
+                    tn = tn + 1;
+            }
+            precision = tp / (tp + fp);
+            return precision;
+        }
+        public double calcRecall(int[] test_labels, int[] prediction_label)
+        {
+            double recall;
+
+            double tp = 0;
+            double tn = 0;
+            double fp = 0;
+            double fn = 0;
+
+            for (int i = 0; i < test_labels.Length ; i++)
+            {
+                if (test_labels[i] == 1 && prediction_label[i] == 1)
+                    tp = tp + 1;
+                else if (test_labels[i] == 1 && prediction_label[i] != 1)
+                    fn = fn + 1;
+                else if (test_labels[i] != 1 && prediction_label[i] == 1)
+                    fp = fp + 1;
+                else if (test_labels[i] != 1 && prediction_label[i] != 1)
+                    tn = tn + 1;
+            }
+            recall = tp/(tp + fn);
+            return recall;
         }
         public string normalize(string text)
         {
